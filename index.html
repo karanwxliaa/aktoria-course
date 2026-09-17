@@ -31,7 +31,8 @@
   --good:#69B97F; --shadow:0 1px 3px rgba(0,0,0,.4);
 }
 *{box-sizing:border-box}
-html{height:100%}
+html{height:100%;-webkit-text-size-adjust:100%}
+button{touch-action:manipulation;-webkit-tap-highlight-color:transparent}
 body{
   margin:0; background:var(--paper); color:var(--ink);
   font-family:"Literata", Georgia, "Times New Roman", serif;
@@ -54,8 +55,8 @@ strong{font-weight:700}
 .divider{border:0;border-top:1.5px solid var(--line);margin:2.4em 0}
 
 /* header */
-.topbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:var(--paper);
-  margin:0 -16px;padding:10px 16px 8px;border-bottom:1.5px solid var(--line)}
+.topbar{position:sticky;top:0;z-index:50;background:var(--paper);
+  margin:0 -16px;padding:calc(10px + env(safe-area-inset-top,0px)) 16px 8px;border-bottom:1.5px solid var(--line)}
 .topbar-in{max-width:690px;margin:0 auto;display:flex;align-items:center;gap:12px}
 .brand{font-weight:800;font-size:1.02rem;color:var(--ink);text-decoration:none;display:flex;align-items:center;gap:8px;background:none;border:none;padding:0;cursor:pointer}
 .brand .logo{width:30px;height:30px;border-radius:9px;background:var(--teal);color:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:17px}
@@ -204,13 +205,12 @@ footer{margin-top:60px;padding-top:20px;border-top:1.5px solid var(--line);color
     <p>A little school made just for you, to show you what Karan builds all day.</p>
     <form id="loginform">
       <label class="field" for="user">Your name</label>
-      <input type="text" id="user" autocomplete="username" placeholder="mom">
+      <input type="text" id="user" autocomplete="username">
       <label class="field" for="pass">Secret word</label>
-      <input type="password" id="pass" autocomplete="current-password" placeholder="mom">
+      <input type="password" id="pass" autocomplete="current-password">
       <div class="loginerr" id="loginerr"></div>
       <button class="btn" type="submit">Open my school →</button>
     </form>
-    <p class="hint">Hint: both answers are the name Karan calls you. Three letters. 😊</p>
   </div>
 </div>
 
@@ -228,12 +228,12 @@ footer{margin-top:60px;padding-top:20px;border-top:1.5px solid var(--line);color
 <!-- ======================= HOME ======================= -->
 <section class="screen" id="home">
   <h1 class="hello">Hello, Mom 👋</h1>
-  <p class="standfirst">Welcome to your own little school. Seven short lessons, no exams, no hurry. Read one lesson with your chai, then tell Karan what you learned — he'll be so impressed.</p>
+  <p class="standfirst">Your own little school. Seven short lessons, no exams, no hurry — one lesson with your chai, then tell Karan what you learned.</p>
 
   <div class="goalcard">
     <span class="lab">🎯 The goal — one sentence</span>
     <blockquote>"Karan's company, Aktoria, helps robot companies in two ways: their trained people <b>drive robots from far away</b> when robots can't manage alone — and every one of those sessions is <b>recorded as a lesson</b> that teaches robots to do the work themselves."</blockquote>
-    <p style="margin:.8em 0 0;font-size:.95rem;color:var(--muted)">Right now this sentence may sound strange. After seven lessons, you'll be able to say it — and explain every word of it — at any family dinner.</p>
+    <p style="margin:.8em 0 0;font-size:.95rem;color:var(--muted)">Sounds strange now? After seven lessons you'll explain every word of it at any family dinner.</p>
   </div>
 
   <h2 class="partlabel">Part 1 · How machines learn</h2>
@@ -249,7 +249,7 @@ footer{margin-top:60px;padding-top:20px;border-top:1.5px solid var(--line);color
   <button class="lcard" data-goto="lesson-6"><span class="lnum">6</span><span><span class="lt">Robot lessons — the treasure everyone is buying</span><br><span class="lm">☕☕ about 20 minutes · 3 videos</span></span><span class="tick">✓</span></button>
   <button class="lcard" data-goto="lesson-7"><span class="lnum">7</span><span><span class="lt">Aktoria — what your son actually built</span><br><span class="lm">☕ about 15 minutes · quiz + your certificate 🎓</span></span><span class="tick">✓</span></button>
 
-  <p style="margin-top:2em;color:var(--muted);font-size:.95rem">💡 <b>How to use this school:</b> one lesson per sitting is plenty. The videos open when you tap them — they're all real videos from universities and news channels. If English audio is fast, you can slow any YouTube video: tap the ⚙️ gear → Playback speed → 0.75.</p>
+  <p style="margin-top:2em;color:var(--muted);font-size:.95rem">💡 One lesson per sitting is plenty. Videos play when you tap them. If the English is fast, slow any video: ⚙️ gear → Playback speed → 0.75.</p>
 </section>
 <!-- ======================= LESSON 1 ======================= -->
 <section class="screen" id="lesson-1">
@@ -258,13 +258,13 @@ footer{margin-top:60px;padding-top:20px;border-top:1.5px solid var(--line);color
   <p class="standfirst">Before robots, before ChatGPT, there is one idea under all of it. It fits in your kitchen.</p>
 
   <h2>1. Every machine you grew up with follows a recipe</h2>
-  <p>Think about your washing machine. Somebody in a factory, years ago, wrote its recipe: <em>soak for ten minutes, tumble, rinse, spin for five.</em> Every wash, it performs those exact steps, in that exact order. It has been doing this since the first automatic washing machine appeared in 1937 — and here is the important part: <strong>it never once opens the lid to check whether the clothes actually got clean.</strong> It follows the recipe; it never tastes the food.</p>
-  <p>A computer <strong>program</strong> is exactly this: a recipe card, written by a person, followed by a very obedient cook with no judgment of its own. The ATM, the microwave, the TV remote, the railway ticket machine — all recipe cards. For about seventy years, <em>all</em> software in the world worked this way. If a person could write the steps down, a machine could do them — faster and without ever getting tired.</p>
+  <p>Think about your washing machine. Someone in a factory wrote its recipe once: <em>soak, tumble, rinse, spin.</em> Every wash, it does those exact steps — and <strong>it never opens the lid to check if the clothes actually got clean.</strong> It follows the recipe; it never tastes the food.</p>
+  <p>A computer <strong>program</strong> is exactly this: a recipe card written by a person, followed by a very obedient cook with no judgment. The ATM, the microwave, the ticket machine — all recipe cards. For seventy years, all software worked this way.</p>
   <div class="analogy"><span class="lab">🍳 Keep this picture</span>
   <p>A program is a recipe card. The computer is an extremely obedient cook who does exactly what the card says, the same way every time — and can do <em>nothing</em> that is not on the card.</p></div>
 
-  <h2>2. Now try to write the recipe for something easy</h2>
-  <p>Here is where the whole story turns. Some things that feel effortless to you <strong>cannot be written down as steps at all.</strong> Try it yourself — write the recipe a computer could follow to answer one question: <em>"Is there a dog in this photo?"</em></p>
+  <h2>2. Now try writing the recipe for something "easy"</h2>
+  <p>Here's where the story turns. Some things that feel effortless <strong>cannot be written as steps at all.</strong> Try it — what recipe tells a computer: <em>"Is there a dog in this photo?"</em></p>
 
   <div class="widget">
     <span class="lab">🎮 A little game — write the dog rule</span>
@@ -278,36 +278,35 @@ footer{margin-top:60px;padding-top:20px;border-top:1.5px solid var(--line);color
     <div class="rulereply" id="dogreply"></div>
   </div>
 
-  <p>Every rule fails. And yet any four-year-old — long before she can read — points at a dog and says "doggy!", even a breed she has never seen, even a dog curled up asleep showing no legs at all. She never learned a rule. She was <em>shown dogs</em>, again and again, until something inside her simply knew.</p>
-  <p>Scientists have a lovely phrase for this: <strong>"we know more than we can tell."</strong> You know how to recognize your own child's face in any crowd, at any age, from any angle — but you could not write down how you do it. That knowledge lives in experience, not in words. And no recipe card can hold it.</p>
+  <p>Every rule fails. Yet any four-year-old points at a dog and says "doggy!" — even a breed she's never seen. She never learned a rule. She was <em>shown dogs</em>, again and again, until she simply knew.</p>
+  <p>You're the same: you'd spot your own child in any crowd, at any age — but you couldn't write down <em>how</em>. Some knowledge lives in experience, not words. No recipe card can hold it.</p>
 
   <h2>3. The big switch: stop writing recipes, start showing examples</h2>
-  <p>For about fifty years, very clever programmers tried to make computers see by writing ever-more-clever rules. It barely worked. Computers misread roughly <strong>one photo out of every four.</strong></p>
+  <p>For fifty years, clever programmers tried to make computers see by writing cleverer rules. It barely worked — computers misread <strong>one photo in four.</strong></p>
   <div class="story"><span class="lab">📖 A true story — the woman everyone doubted</span>
-    <p>About twenty years ago, a young scientist decided everyone had it backwards. The others were competing to write cleverer and cleverer rules — when what was missing, she said, was <em>examples</em>. Teaching a computer to see with a few thousand photos was like raising a child who is allowed only two picture books a year.</p>
-    <p>People warned her she was wasting her career. Her team spent years building a giant album: <strong>14 million photos</strong>, each labeled by hand — "dog," "cup," "bicycle" — by thousands of paid helpers around the world.</p>
-    <p>Then one team taught a computer <em>not with rules but with over a million of those labeled photos</em> — the way a child is shown dogs. Its mistakes dropped by nearly half in one jump. Within a few years, machines were misreading almost nothing. Every phone camera that finds faces today, every photo app that sorts your pictures, came from that switch.</p>
+    <p>About twenty years ago, a young scientist said everyone had it backwards: what was missing wasn't cleverer rules, it was <em>examples</em>. People warned she was wasting her career. Her team spent years collecting <strong>14 million photos</strong>, each labeled by hand — "dog," "cup," "bicycle."</p>
+    <p>Then a computer was taught <em>with a million of those photos instead of rules</em> — the way a child is shown dogs. Its mistakes dropped by nearly half in one jump. Within a few years, machines misread almost nothing. Every phone camera that finds faces today came from that switch.</p>
   </div>
-  <p>This new way of building machines is called <strong>machine learning</strong>: instead of a person writing the recipe, the machine works the recipe out for itself — from thousands or millions of examples. This one idea is behind ChatGPT, behind the robots, and behind your son's company. <strong>The examples, not the cleverness, were the missing ingredient.</strong></p>
+  <p>This is <strong>machine learning</strong>: the machine works out its own recipe from many examples. This one idea is behind ChatGPT, behind robots, and behind your son's company. <strong>The examples, not the cleverness, were the missing ingredient.</strong></p>
 
   <h2>4. What "training" actually is (no magic, promise)</h2>
-  <p>You will hear the word <strong>training</strong> constantly around Karan. Here is what it physically means.</p>
-  <p>Inside the machine sit billions of tiny adjustable numbers — imagine <strong>billions of little tuning dials</strong>, like on an old radio. Training is a simple loop, repeated a mind-breaking number of times:</p>
+  <p>You'll hear the word <strong>training</strong> constantly around Karan. Here's what it really means.</p>
+  <p>Inside the machine sit <strong>billions of tiny tuning dials</strong>, like on an old radio. Training is one simple loop, repeated endlessly:</p>
   <p style="text-align:center;font-weight:700;font-family:'Bricolage Grotesque',sans-serif">guess → check the answer → nudge every dial a hair's width → repeat</p>
-  <p>The machine looks at an example ("here is a photo — dog or cat?"), makes a guess, is told how wrong it was, and every dial gets turned a tiny amount in the direction that would have made the guess slightly less wrong. One nudge does nothing. Billions upon billions of nudges, guided by correct answers, slowly tune the static into a clear station.</p>
+  <p>One nudge does nothing. Billions of nudges, guided by correct answers, slowly tune the static into a clear station.</p>
   <div class="numrow">
     <div class="numcell"><div class="numbig">175,000,000,000</div><div class="numcap">dials inside GPT-3, the machine behind the first ChatGPT</div></div>
     <div class="numcell"><div class="numbig">5,500 years</div><div class="numcap">how long it would take you to touch each of those dials just once, one per second, day and night</div></div>
     <div class="numcell"><div class="numbig">months</div><div class="numcap">of thousands of computers running non-stop — one top model reportedly cost over $100 million to train</div></div>
   </div>
   <div class="analogy"><span class="lab">🍲 You already did this</span>
-  <p>This is exactly how you perfected your own cooking. Nobody handed you the final recipe for your dal thirty years ago. Every pot you ever cooked nudged the salt, the heat, the timing a tiny bit — thousands of dinners, each one a small correction. You were <em>trained</em> by thirty years of examples. The machine does the same thing, just a million times an hour, with none of the taste and all of the patience.</p></div>
+  <p>It's how you perfected your own cooking. Every pot in thirty years nudged the salt, the heat, the timing a tiny bit. You were <em>trained</em> by thousands of dinners. The machine does the same — a million times an hour, with no taste and endless patience.</p></div>
 
   <h2>5. And a "model" is… a file</h2>
-  <p>The last word you need from this lesson: after training finishes, all those tuned dials — billions of numbers — get saved. That saved bundle is called a <strong>model</strong>. It is not a robot, not a machine you could touch. <strong>It is a computer file</strong>, like a photo or a video is a file, just much bigger — one famous model is a file of about 800 gigabytes, the contents of several full phones.</p>
-  <p>Two strange and important things about this file:</p>
-  <p><strong>Nobody wrote it, and nobody can read it.</strong> The numbers were found by training, not typed by a person. Even the engineers who built the system cannot open the file and point to where "the capital of France" is stored — the knowledge is smeared across all the dials at once, the way your feel for perfect roti dough is smeared across thirty years of hands, not written in any notebook.</p>
-  <p><strong>It can be copied.</strong> Your thirty years of kitchen instinct cannot be handed to anyone — your daughter-in-law has to learn it the slow way. A model is that same kind of practiced instinct, except it can be photocopied to a million phones overnight. This slightly unfair superpower — <em>experience that can be photocopied</em> — is why the whole world is racing to build these files. And the same robot arm, the same chat app, is clumsy or brilliant depending on <em>which model file is loaded into it</em> — like the same phone being a different tool depending on the app.</p>
+  <p>When training finishes, all those tuned dials get saved. That saved bundle is a <strong>model</strong>. Not a robot, not a machine — <strong>a computer file</strong>, like a photo or video, just much bigger.</p>
+  <p>Two strange things about this file:</p>
+  <p><strong>Nobody wrote it, and nobody can read it.</strong> Even its makers can't open it and point to where "the capital of France" is stored — the knowledge is smeared across all the dials, the way your feel for perfect dough is smeared across thirty years of hands, written in no notebook.</p>
+  <p><strong>It can be copied.</strong> Your kitchen instinct can't be handed to anyone — a model is that same practiced instinct, but photocopyable to a million phones overnight. And the same robot arm is clumsy or brilliant depending on <em>which model file is loaded into it</em> — like the same phone with a different app.</p>
 
   <h2>🎬 Watch (3 minutes)</h2>
   <div class="video" data-vid="KHbwOetbmbs" data-vt="How AI Works: What is Machine Learning? (Code.org)">
@@ -346,8 +345,8 @@ footer{margin-top:60px;padding-top:20px;border-top:1.5px solid var(--line);color
   <p class="standfirst">The famous talking computer, explained with something that's been on your phone all along.</p>
 
   <h2>1. You already use a tiny ChatGPT every day</h2>
-  <p>Open WhatsApp and start typing. Above the keyboard, three little word suggestions appear. Type <em>"Happy"</em> and your phone offers <em>"birthday"</em>. It learned this from seeing what people (including you) usually type next. It is playing a guessing game: <strong>given the words so far, what word probably comes next?</strong></p>
-  <p>Hold that thought, because here is the secret of the most famous machine in the world: <strong>ChatGPT plays exactly the same game.</strong> That's the whole trick. Given everything written so far in the conversation, it predicts one likely next word. Writes it. Then predicts the next. And the next — one word at a time, hundreds of times — until an answer appears. It is not searching the internet for an answer. It is not copying from a stored book. It is <em>finishing the sentence</em>, the way you finish a proverb everyone knows.</p>
+  <p>Start typing in WhatsApp. Above the keyboard, three word suggestions appear. Type <em>"Happy"</em> and your phone offers <em>"birthday"</em>. It's playing a guessing game: <strong>given the words so far, what probably comes next?</strong></p>
+  <p>Here's the secret of the most famous machine in the world: <strong>ChatGPT plays exactly the same game.</strong> It predicts one likely next word, writes it, then predicts the next — hundreds of times — until an answer appears. It's not searching the internet. It's not copying from a book. It's <em>finishing the sentence</em>, the way you finish a proverb everyone knows.</p>
 
   <div class="widget">
     <span class="lab">🎮 Play the game ChatGPT plays</span>
@@ -357,31 +356,29 @@ footer{margin-top:60px;padding-top:20px;border-top:1.5px solid var(--line);color
     <div class="rulereply" id="sentnote"></div>
   </div>
 
-  <p>The difference between your keyboard and ChatGPT is not the game — it's the <strong>size of the player</strong>. Your keyboard's little guesser looks at your last word or two. ChatGPT's guesser can consider about <strong>300 pages</strong> of conversation at once, and it runs on hundreds of billions of those tuning dials from Lesson 1, in a giant computer building. Same idea — bicycle versus jumbo jet.</p>
+  <p>The difference isn't the game — it's the <strong>size of the player</strong>. Your keyboard looks at your last word or two. ChatGPT considers about <strong>300 pages</strong> at once, using billions of those tuning dials from Lesson 1. Same idea — bicycle versus jumbo jet.</p>
 
   <h2>2. What did it read to get this good?</h2>
-  <p>Remember the rule from Lesson 1: the student is only as good as its examples. So — how many examples of human writing did these machines study? Sit down for this.</p>
+  <p>The student is only as good as its examples. So how much human writing did these machines study? Sit down for this.</p>
   <div class="numrow">
     <div class="numcell"><div class="numbig">~5 billion</div><div class="numcap">words in ALL of English Wikipedia — about 38 years of non-stop reading. Our measuring cup.</div></div>
     <div class="numcell"><div class="numbig">40 Wikipedias</div><div class="numcap">what GPT-3 read in 2020 — around 1,600 years of reading, day and night</div></div>
     <div class="numcell"><div class="numbig">2,000+ Wikipedias</div><div class="numcap">what the newest machines read — tens of thousands of years of reading, longer than writing has existed</div></div>
   </div>
-  <p>Where did that mountain of text come from? <strong>The internet — essentially for free.</strong> Humanity spent thirty years writing emails, articles, recipes, arguments, books, reviews... and it was all just lying there. Nobody had to be paid to create the study material. <em>Remember this fact. In Lesson 3 it becomes the key to Karan's entire industry.</em></p>
-  <p style="font-size:.95rem;color:var(--muted)">(One small word you may hear Karan say: <b>"tokens."</b> Machines count text in tokens — word-pieces. Four tokens is roughly three words. That's all it means.)</p>
-  <p>And here's a comforting thought. A child becomes fluent in her language after hearing fewer than <strong>100 million words</strong>. The machine needed <em>trillions</em> — tens of thousands of times more. So no, the machine is not a genius child. It is a <strong>spectacularly slow student with infinite stamina</strong>, making up in volume what it lacks in your grandchildren's spark.</p>
+  <p>Where did that mountain of text come from? <strong>The internet — for free.</strong> Humanity spent thirty years writing emails, recipes, articles, arguments… and it was all just lying there. <em>Remember this. In Lesson 3 it becomes the key to Karan's entire industry.</em></p>
+  <p>A comforting thought: a child becomes fluent after hearing under <strong>100 million words</strong>. The machine needed <em>trillions</em>. It's not a genius child — it's a <strong>very slow student with infinite stamina</strong>, making up in volume what it lacks in your grandchildren's spark.</p>
 
   <h2>3. Why it makes mistakes — confidently</h2>
   <div class="story"><span class="lab">📖 A true story — the lawyer who didn't check</span>
-    <p>A few years ago, a lawyer in New York asked ChatGPT to find court cases for a lawsuit against an airline. It gave him six perfect-looking cases — names, judges, quotes. He submitted them to the court.</p>
-    <p><strong>All six were invented.</strong> ChatGPT hadn't "lied" — it had done its one and only job: compose text that <em>looks like</em> what lawyers write. The judge fined him $5,000, and the story went around the world.</p>
+    <p>A lawyer in New York asked ChatGPT to find court cases for a lawsuit. It gave him six perfect-looking cases — names, judges, quotes. He submitted them to the court.</p>
+    <p><strong>All six were invented.</strong> ChatGPT hadn't "lied" — it did its only job: compose text that <em>looks like</em> what lawyers write. The judge fined him $5,000.</p>
   </div>
-  <p>Why does a machine this capable invent things? Because fluency and truth come out of the same guessing machinery. A wrong answer arrives in <em>exactly</em> the same polished, confident tone as a right one — so you cannot judge it by tone, the way you'd judge a smooth-talking wedding guest. The people who build these machines explain it with a picture any mother of students will recognize: the machine is like an exam-taker who knows that <strong>a blank answer scores zero but a confident guess might score</strong> — so it learned to never leave a question blank, and never say "I don't know."</p>
-  <p>When testers quizzed chatbots on tricky law questions, the chatbots got <strong>more than half wrong</strong> — but versions that could first look things up in real law books made far fewer mistakes. Notice what fixed it: <em>better material to lean on.</em> Always the data.</p>
-  <p>So the family rule is: <strong>use it freely, check what matters.</strong> It is a brilliant, tireless, occasionally-wrong assistant — wonderful for drafts, explanations, translations, ideas; and anything important you verify, like you'd taste a new cook's dish before serving it to guests.</p>
+  <p>Why does it invent things? Because right and wrong answers come out of the <em>same</em> guessing machinery, in the same polished tone — you can't judge it by confidence, like a smooth-talking wedding guest. It's an exam-taker who knows <strong>a blank answer scores zero but a confident guess might score</strong> — so it never says "I don't know."</p>
+  <p>So the family rule: <strong>use it freely, check what matters.</strong> A brilliant, tireless, occasionally-wrong assistant. Wonderful for drafts, explanations, translations — and anything important, you verify, like tasting a new cook's dish before serving guests.</p>
 
   <h2>4. One more secret: humans taught it manners</h2>
-  <p>After all that reading, the machine could talk — but not <em>behave</em>. So companies paid thousands of people to chat with it and grade its answers: thumbs up for helpful and polite, thumbs down for rude or wrong. Dial-nudging, again — but with paid human teachers instead of free internet text. Hold onto this too: <strong>behind every "smart" machine stands an army of paid human teachers.</strong> In the robot world, some of those teachers work for your son.</p>
-  <p>One last twist: the world is actually <strong>running out of fresh human writing</strong> to feed these machines — researchers estimate the useful public text of the internet will be essentially all used up within a few years. Good study material has become one of the most precious things in technology. Keep that thought warm; it comes back with force in Lesson 6.</p>
+  <p>After all that reading, the machine could talk — but not <em>behave</em>. So companies paid thousands of people to grade its answers: thumbs up for helpful, thumbs down for rude or wrong. <strong>Behind every "smart" machine stands an army of paid human teachers.</strong> In the robot world, some of those teachers work for your son.</p>
+  <p>One last twist: the world is <strong>running out of fresh writing</strong> to feed these machines — the internet's useful text will be mostly used up within a few years. Good study material has become one of the most precious things in technology. Keep that warm; it returns with force in Lesson 6.</p>
 
   <h2>🎬 Watch (the first 3–4 minutes are enough)</h2>
   <div class="video" data-vid="LPZh9BOjkQs" data-vt="How ChatGPT guesses the next word">
@@ -390,10 +387,10 @@ footer{margin-top:60px;padding-top:20px;border-top:1.5px solid var(--line);color
   </div>
 
   <div class="tryit"><span class="lab">✋ Try it yourself — catch the machine bluffing</span>
-    <p style="margin-top:0">In WhatsApp, tap the blue-purple circle (Meta AI — it understands Hindi too), or open <a href="https://chatgpt.com" target="_blank" rel="noopener">chatgpt.com ↗</a>.</p>
-    <p><b>1.</b> Ask it something you know better than anyone alive: <em>"How do I make [your signature dish] exactly the way it's made in [your family/region]?"</em></p>
-    <p><b>2.</b> Read the answer like a mother-in-law inspecting a new cook. It will be fluent, confident — and somewhere it will get a detail wrong that you would never get wrong.</p>
-    <p><b>3.</b> When you find it, congratulations: you have just fact-checked the most famous machine on Earth. Over <b>800 million people</b> use it every week; very few of them remember to do what you just did.</p>
+    <p style="margin-top:0">In WhatsApp, tap the blue-purple circle (it understands Hindi too), or open <a href="https://chatgpt.com" target="_blank" rel="noopener">chatgpt.com ↗</a>.</p>
+    <p><b>1.</b> Ask about something you know better than anyone: <em>"How do I make [your signature dish] the way it's made in [your family]?"</em></p>
+    <p><b>2.</b> Read the answer like a mother-in-law inspecting a new cook. Somewhere, it will get a detail wrong that you never would.</p>
+    <p><b>3.</b> Found it? Congratulations — you just fact-checked the most famous machine on Earth. Over <b>800 million people</b> use it weekly; few remember to do what you just did.</p>
   </div>
 
   <h2>Check yourself</h2>
@@ -428,26 +425,25 @@ footer{margin-top:60px;padding-top:20px;border-top:1.5px solid var(--line);color
   <p><strong>A body</strong> — motors, metal arms, wheels, hands.<br>
   <strong>Senses</strong> — cameras for eyes, sometimes microphones, very rarely any sense of touch.<br>
   <strong>A brain</strong> — the part that decides what to move next.</p>
-  <p>Here is the surprise: <strong>the body was solved long ago.</strong> Factory robots have existed since the 1960s. Today about <strong>4.7 million</strong> of them work in the world's factories. Strong, tireless, precise bodies are old news. The battle of our time is over the <em>brain</em> — and, as you'll see, over the brain's <em>study material</em>.</p>
+  <p>The surprise: <strong>the body was solved long ago.</strong> Factory robots have existed since the 1960s — about <strong>4.7 million</strong> work in factories today. The battle of our time is over the <em>brain</em> — and over the brain's <em>study material</em>.</p>
 
-  <h2>2. The robots you've already seen are not what you think</h2>
-  <p>You've seen factory robots on TV — rows of orange arms welding cars in showers of sparks. They look intelligent. They are not. <strong>They are precise.</strong> A welding robot repeats one recorded motion, accurate to a hair's width, a million times — but most of them are completely blind. No cameras, no touch. If the car arrived a few centimetres out of place, the robot would confidently weld the empty air. It's a music box: it plays its one tune perfectly, and if you nudge the piano aside, it keeps "playing" in the air.</p>
-  <p>That's why factory robots stand behind safety cages — not because they're dangerous minds, but because they're <strong>blind muscles</strong>. A person could stand right next to one and it would never know.</p>
-  <p>And the "robots" in your own home? The washing machine follows its fixed recipe and never checks the clothes. The robot vacuum cleans the way a blindfolded person would sweep: roll forward, bump the sofa, turn, roll again. Millions have been sold — and after twenty years, not one of them has ever picked up a single sock. It has no hands, and nothing it does today makes it better tomorrow. <strong>None of these machines learn.</strong></p>
+  <h2>2. The robots you've seen are not what you think</h2>
+  <p>Factory robots welding cars in showers of sparks look intelligent. They're not — <strong>they're precise.</strong> A welding robot repeats one recorded motion a million times, but most are completely blind: no cameras, no touch. If the car arrived a bit out of place, it would confidently weld the empty air. That's why they stand behind safety cages — not dangerous minds, just <strong>blind muscles</strong>.</p>
+  <p>And at home? The robot vacuum cleans like a blindfolded person sweeping: roll, bump the sofa, turn, roll again. Twenty years, millions sold — and it has never picked up a single sock. <strong>None of these machines learn.</strong></p>
 
   <h2>3. The upside-down rule</h2>
   <p>Now, the strangest and most important fact in this whole school:</p>
   <div class="analogy"><span class="lab">🙃 The upside-down rule</span>
   <p>What is <em>hard</em> for people is <em>easy</em> for computers. What is so <em>easy</em> for people that we don't even call it a skill — is nearly <em>impossible</em> for robots.</p></div>
-  <p>A computer beat the world chess champion back in 1997. But here's the part of that story nobody remembers: <strong>the computer couldn't move its own pieces.</strong> An engineer sat beside the board, moving each pawn for it. The machine out-thought the greatest chess mind alive — and couldn't do what a two-year-old does with her fingers.</p>
-  <p>Think of a brilliant professor who calculates the whole family's taxes in his head in one minute — but cannot crack an egg, button his shirt, or pour tea without spilling. Computers are that professor. Why? Because chess and arithmetic are recent human party tricks, but hands, eyes and balance were polished over millions of years. The things that feel effortless — picking up a coin, folding a shirt — are actually our <em>deepest, oldest, most refined</em> skills. We just never noticed, because everyone has them.</p>
+  <p>A computer beat the world chess champion back in 1997. The part nobody remembers: <strong>it couldn't move its own pieces.</strong> An engineer sat beside the board, moving each pawn for it. It out-thought the greatest chess mind alive — and couldn't do what a two-year-old does with her fingers.</p>
+  <p>Computers are a brilliant professor who calculates the family's taxes in his head — but can't crack an egg or pour tea without spilling. Why? Chess and arithmetic are recent party tricks. Hands, eyes and balance were polished over millions of years. The things that feel effortless — picking up a coin, folding a shirt — are our <em>deepest, oldest</em> skills. We never noticed, because everyone has them.</p>
   <div class="numrow">
     <div class="numcell"><div class="numbig">17,000</div><div class="numcap">tiny touch sensors in one human hand — feeling "slipping! too soft! too hot!" every instant</div></div>
     <div class="numcell"><div class="numbig">0</div><div class="numcap">touch sensors in most robot grippers — a metal pincher that only opens and closes</div></div>
     <div class="numcell"><div class="numbig">~25 min</div><div class="numcap">time the world's best robot once needed to fold ONE towel — and it made world news as a triumph</div></div>
   </div>
-  <p>Picking up a grape with a robot gripper is like picking it up with barbecue tongs, wearing thick oven mitts, with your eyes closed. And soft, floppy things are the boss level: a brick behaves the same every time you grab it, but a shirt is a different shape every second you touch it — like shaking hands with water. That's why a towel once defeated a robot that cost as much as a house.</p>
-  <p>Even the world's biggest online shop, with over a <strong>million</strong> robots in its warehouses, had them mostly carrying shelves around for a decade — humans kept doing the grabbing, because grabbing a toothpaste tube, a glass jar, a floppy bag was too hard for machines. Their first robot arm that can actually <em>feel</em> what it touches arrived only last year.</p>
+  <p>Picking up a grape with a robot gripper is like using barbecue tongs, in thick oven mitts, with your eyes closed. And soft things are the boss level: a brick behaves the same every time, but a shirt changes shape every second you touch it — like shaking hands with water. A towel once defeated a robot that cost as much as a house.</p>
+  <p>Even the world's biggest online shop, with a <strong>million</strong> warehouse robots, had them mostly carrying shelves for a decade — humans kept doing the grabbing. Their first robot arm that can actually <em>feel</em> what it touches arrived only last year.</p>
 
   <h2>🎬 Watch: the world's best robots, honestly</h2>
   <div class="video" data-vid="g0TaYhjpOfo" data-vt="Robots falling down at a big robot competition">
@@ -460,13 +456,13 @@ footer{margin-top:60px;padding-top:20px;border-top:1.5px solid var(--line);color
   </div>
 
   <h2>4. The empty library — the sentence this whole school stands on</h2>
-  <p>Now bring back the golden rule from Lessons 1 and 2: <em>machines get smart from examples.</em> ChatGPT got smart because its study material — all the text humanity ever typed — was <strong>already lying on the internet, free.</strong> It walked into a full library.</p>
-  <p>So what happens when a robot goes looking for <em>its</em> study material? It needs examples of a very particular kind: <em>exactly how do fingers move when folding a shirt? How hard do you grip a cup? At what angle does the wrist turn when pouring?</em></p>
+  <p>Remember the golden rule: <em>machines get smart from examples.</em> ChatGPT's study material — all the text humanity ever typed — was <strong>already on the internet, free.</strong> It walked into a full library.</p>
+  <p>Now the robot goes looking for <em>its</em> study material: <em>how exactly do fingers move when folding a shirt? How hard do you grip a cup?</em></p>
   <p style="font-size:1.15rem"><strong>And the shelf is empty.</strong></p>
-  <p>Nobody, in all of human history, ever wrote that down. There is no WhatsApp of hand movements. No YouTube of grip strength. Billions of people fold laundry every day — and not one of those movements was ever recorded in a form a robot can learn from. The talking machines inherited a full library for free; <strong>the robots' library has to be written now, by hand, page by page — and someone has to pay the writers.</strong></p>
+  <p>Nobody, in all of history, ever wrote that down. There is no WhatsApp of hand movements, no YouTube of grip strength. Billions of people fold laundry daily — and not one movement was recorded in a form a robot can learn from. <strong>The robots' library has to be written now, page by page — and someone has to pay the writers.</strong></p>
   <div class="analogy"><span class="lab">🔑 The hinge of everything</span>
-  <p>ChatGPT arrived overnight because its textbook already existed. Robot helpers are arriving slowly because their textbook is <em>being written right now</em> — one recorded demonstration at a time. Writing that missing library is the industry your son works in. Everything in the next lessons — the remote driving, the recorded lessons, the special tools — is about writing it faster.</p></div>
-  <p>How big is the gap? The talking machines studied the equivalent of roughly <strong>a hundred thousand years</strong> of human reading. All the robot "lessons" collected in the entire world so far add up to about <strong>one year</strong> of experience. That gap — a hundred thousand to one — is the single biggest business opportunity in technology today. Hold that number; in Lesson 6 you'll meet the people filling it.</p>
+  <p>ChatGPT arrived overnight because its textbook already existed. Robot helpers are arriving slowly because their textbook is <em>being written right now</em> — one recorded demonstration at a time. Writing that missing library is the industry your son works in.</p></div>
+  <p>How big is the gap? The talking machines studied the equivalent of about <strong>a hundred thousand years</strong> of reading. All the robot lessons collected in the entire world add up to about <strong>one year</strong> of experience. That gap is the biggest business opportunity in technology today — and in Lesson 6 you'll meet the people filling it.</p>
 
   <h2>Check yourself</h2>
   <details class="reveal"><summary>Factory robots weld cars perfectly. So why can't they make a cup of tea?</summary><div class="ans"><p>Because they don't understand anything — they replay one recorded motion in a world engineered to never change. Tea lives in your kitchen, where nothing is ever in the same place twice. Precision is not intelligence.</p></div></details>
@@ -496,23 +492,20 @@ footer{margin-top:60px;padding-top:20px;border-top:1.5px solid var(--line);color
   <p class="standfirst">The word Karan says most: <b>teleoperation</b>. It sounds technical. It's actually a video call — where your hands come out the other side.</p>
 
   <h2>1. A video call with hands</h2>
-  <p>On a WhatsApp video call you can see Karan's kitchen from across the world — but you can't stir his pot. Now imagine a robot standing in that kitchen. On your screen you see through <em>its</em> camera eyes. You move your hands — and <strong>its hands copy you, the same instant.</strong> You could stir the pot from another city. That is teleoperation: seeing through a robot's eyes and lending it your hands, over the internet.</p>
-  <p>How does the robot know what your hands are doing? Two common ways:</p>
-  <p><strong>Twin arms.</strong> The operator holds a small, light "leader" arm. The robot's arm copies every motion exactly — like teaching a child to write by holding their hand over the pencil, except the child's hand is in another building.</p>
-  <p><strong>Wearing the robot.</strong> The operator puts on a headset showing the robot's camera view, and holds motion controllers. It's the puppeteer moved <em>inside</em> the puppet — no strings, just the internet.</p>
+  <p>On a WhatsApp video call you can see Karan's kitchen — but you can't stir his pot. Now imagine a robot standing in that kitchen. You see through <em>its</em> camera eyes, you move your hands — and <strong>its hands copy you, the same instant.</strong> That is teleoperation: lending a robot your hands, over the internet.</p>
+  <p>How does it know what your hands are doing? Two ways: <strong>twin arms</strong> — the operator holds a small "leader" arm and the robot's arm copies it, like guiding a child's hand over the pencil from another building. Or <strong>wearing the robot</strong> — a headset shows the robot's view, controllers carry your movements. The puppeteer, moved inside the puppet.</p>
 
-  <h2>2. This is older and more trusted than you think</h2>
-  <p>Teleoperation wasn't invented for fun. It was invented in the 1940s so scientists could handle radioactive material: behind thick protective glass, a person moved two handles, and metal tongs on the dangerous side copied every motion. Human skill, sent through a wall.</p>
-  <p>And today? You may have heard of "robot surgery." Here is what those words really mean: the surgeon sits at a console a few steps from the patient, looking into a 3D viewer, moving finger controls — and robot arms turn those movements into tiny, perfectly steady movements inside the patient. <strong>The robot never decides anything. Every single motion is the surgeon's.</strong> Millions of operations are done this way every year — families trust a teleoperated robot with life itself, usually without knowing the word for it.</p>
-  <p>Even better: the robot makes the surgeon's hands <em>superhuman</em>. Big comfortable hand movements become tiny stitches — and the natural little tremble every human hand has is electronically smoothed away, like pouring tea at your own table instead of on a moving train.</p>
+  <h2>2. Older and more trusted than you think</h2>
+  <p>Teleoperation was invented in the 1940s so scientists could handle radioactive material: behind thick glass, a person moved two handles, and metal tongs on the dangerous side copied every motion.</p>
+  <p>And "robot surgery" today? The surgeon sits at a console, moving finger controls — robot arms turn them into tiny, perfectly steady movements inside the patient. <strong>The robot never decides anything; every motion is the surgeon's.</strong> Millions of operations a year happen this way. Even better: big comfortable hand movements become tiny stitches, and the natural tremble of every human hand is smoothed away.</p>
   <div class="story"><span class="lab">📖 A true story — the operation across the ocean</span>
-    <p>One day in 2001, a surgeon sat down at a console in New York. His patient — a 68-year-old woman — lay on an operating table in France, an ocean away. Through a special high-speed line, he removed her gallbladder in 45 minutes, his hand movements crossing the Atlantic and coming back as video. She recovered perfectly.</p>
-    <p>The total delay — hand moves, robot moves, picture returns — was about <strong>one-sixth of a second. About one blink of an eye.</strong> Remember that number; it's about to matter.</p>
+    <p>In 2001, a surgeon sat at a console in New York. His patient lay on a table in France, an ocean away. Through a special high-speed line, he removed her gallbladder in 45 minutes. She recovered perfectly.</p>
+    <p>The delay — hand moves, robot moves, picture returns — was about <strong>one blink of an eye.</strong> Remember that; it's about to matter.</p>
   </div>
 
   <h2>3. The enemy: delay</h2>
-  <p>Here is the whole engineering battle of Karan's company, in one word: <strong>delay</strong> (engineers say "latency"). It's the time between your movement and seeing the robot respond.</p>
-  <p>You have already felt it. That awkward moment on a video call when you both start talking, stop, and say "no no, you go first" — that's delay. Annoying in conversation. <strong>Deadly for hands.</strong> Imagine heating milk while only watching the pot through a TV broadcast that runs one second behind: by the time your screen shows the milk rising, it has already boiled over on the real stove. Your hands are always acting on old news.</p>
+  <p>Karan's whole engineering battle in one word: <strong>delay</strong> (engineers say "latency") — the time between your movement and seeing the robot respond.</p>
+  <p>You've felt it: that awkward video-call moment when you both start talking, stop, "no no, you go first." Annoying in conversation. <strong>Deadly for hands.</strong> Imagine heating milk while watching the pot through a broadcast running one second behind — by the time you see the milk rising, it already boiled over. Your hands are acting on old news.</p>
 
   <div class="widget">
     <span class="lab">🎮 Feel the delay yourself</span>
@@ -526,14 +519,14 @@ footer{margin-top:60px;padding-top:20px;border-top:1.5px solid var(--line);color
     <div class="lagnote" id="lagnote">With Karan's software, the dot feels glued to your finger — the robot moves before a blink finishes.</div>
   </div>
 
-  <p>The rough rule engineers discovered: up to about <strong>one-fifth of a second</strong> of delay, remote hands feel almost natural. Beyond that, every movement becomes slow, careful, tiring — and delicate work becomes impossible. That's why each level of delay decides <em>what kind</em> of remote work can be done:</p>
+  <p>The rule engineers discovered: up to about <strong>one-fifth of a second</strong>, remote hands feel almost natural. Beyond that, delicate work falls apart. Each level of delay decides <em>what kind</em> of remote work is possible:</p>
   <div class="numrow">
     <div class="numcell"><div class="numbig">0.03 s</div><div class="numcap"><b>Aktoria's software, across a whole country.</b> Faster than a blink — hands feel like your own</div></div>
     <div class="numcell"><div class="numbig">0.15 s</div><div class="numcap">the famous ocean-crossing surgery — delicate work, done carefully</div></div>
     <div class="numcell"><div class="numbig">1.5 s</div><div class="numcap">satellite delay for military drones — fine for flying in open sky, hopeless for threading a needle</div></div>
     <div class="numcell"><div class="numbig">13 min</div><div class="numcap">one-way delay to Mars — live driving impossible; each day's route is planned in advance, like sending a servant to the bazaar with a written list</div></div>
   </div>
-  <p>Now you can read the proudest line on your son's website like an insider. It says their delay is <strong>under 8 thousandths of a second nearby, and about 30–40 across the entire country.</strong> A blink takes 100–150. In plain words: <em>an operator in one city can lend her hands to a robot in another city, and the robot's hands feel glued to hers.</em> Distance has stopped being the problem. That is genuinely hard to build — and it's the foundation everything else in the company stands on.</p>
+  <p>Now you can read the proudest line on your son's website like an insider: delay <strong>under 8 thousandths of a second nearby, about 30–40 across a whole country.</strong> A blink takes 100–150. In plain words: <em>an operator in one city lends her hands to a robot in another, and the robot's hands feel glued to hers.</em> That is genuinely hard to build — and everything else stands on it.</p>
 
   <h2>🎬 Watch teleoperation with your own eyes</h2>
   <div class="video" data-vid="mnLVbwxSdNM" data-vt="Two students drive a robot through cooking a full dinner">
@@ -545,10 +538,10 @@ footer{margin-top:60px;padding-top:20px;border-top:1.5px solid var(--line);color
     <div class="vmeta"><div class="vtitle">A surgery robot stitches the skin of a grape</div><div class="vwatch">👀 Every micro-stitch you see is a human surgeon's hand movement, shrunk down and steadied. This famous clip is teleoperation at its most beautiful.</div><a class="vlink" href="https://www.youtube.com/watch?v=0XdC1HUp-rU" target="_blank" rel="noopener">Open in YouTube ↗</a></div>
   </div>
 
-  <h2>4. Why drive robots at all? Two reasons — and the second one is gold</h2>
-  <p><strong>Reason one: work gets done today.</strong> A robot that can't manage alone can still be useful right now, with a human's skill flowing into it from far away.</p>
-  <p><strong>Reason two — and this is the beautiful part:</strong> remember the empty library from Lesson 3? Every minute of teleoperation is <em>recorded</em> — what the cameras saw, plus every movement of every joint. Each recording is one page written into the robots' missing library. <strong>The same hour of work is sold twice:</strong> the customer gets the job done, and the recording becomes a lesson that teaches robots to do it alone next time.</p>
-  <p>A hired cook who makes tonight's dinner <em>and</em> leaves behind a perfect video recipe after every meal — that's teleoperation. Lessons 5 and 6 are these two reasons, one each. You now hold the master key to the whole business.</p>
+  <h2>4. Why drive robots at all? Two reasons — the second is gold</h2>
+  <p><strong>Reason one: work gets done today.</strong> A robot that can't manage alone becomes useful right now, with human skill flowing in from far away.</p>
+  <p><strong>Reason two:</strong> remember the empty library? Every minute of teleoperation is <em>recorded</em> — what the cameras saw, plus every joint movement. Each recording is one page written into the robots' missing library. <strong>The same hour is sold twice:</strong> the job gets done, and the recording becomes a lesson.</p>
+  <p>A hired cook who makes tonight's dinner <em>and</em> leaves behind a perfect video recipe — that's teleoperation. You now hold the master key to the whole business.</p>
 
   <h2>Check yourself</h2>
   <details class="reveal"><summary>What is teleoperation, in one sentence you'd say to a neighbour?</summary><div class="ans"><p>"A person far away sees through a robot's camera eyes and moves their hands — and the robot copies them instantly. A video call, where your hands come out the other side."</p></div></details>
@@ -579,26 +572,23 @@ footer{margin-top:60px;padding-top:20px;border-top:1.5px solid var(--line);color
 
   <h2>1. The open secret</h2>
   <p>Karan's company introduces itself with one cheeky sentence: <strong>"Every 'autonomous' robot you've seen this year had a human behind it."</strong></p>
-  <p>They mean it literally. Those jaw-dropping robot videos online — a humanoid loading a dishwasher, pouring a drink, tidying a room? As a rule of thumb: <em>if a robot did something delicate and surprising, a person was probably driving it</em> — from the next room or the next continent, exactly the way you learned in Lesson 4.</p>
+  <p>They mean it literally. Those jaw-dropping robot videos online? Rule of thumb: <em>if a robot did something delicate and surprising, a person was probably driving it</em> — from the next room or the next continent.</p>
   <div class="story"><span class="lab">📖 A true story — the $20,000 house robot</span>
-    <p>Last year, a company started selling the first real humanoid robot for homes — a soft, friendly machine in a knitted suit, about the height of a person, for $20,000. A famous tech journalist invited one into a house to test it.</p>
-    <p>Fetching a bottle of water took over a minute. Loading a few dishes took five. And then came the discovery that made headlines: <strong>every single thing the robot did was being driven, live, by a company employee wearing a headset in another building.</strong> The internet had a good laugh — "$20,000 to let a stranger wander my house!"</p>
-    <p>But the company never denied it. That <em>is</em> the plan, they said, openly: the human drivers are the robot's <em>teachers</em>. Owners schedule a session, a trained operator drives the robot through the chore — and every session is recorded and used to teach the robot to do it alone next time. Early buyers aren't buying a finished servant; they're hiring an apprentice, plus the tutor who trains it. (And yes — the owner approves each session, can set no-go rooms, and a light shows when a person is connected.)</p>
+    <p>Last year, a company started selling the first humanoid robot for homes — a friendly machine in a knitted suit, for $20,000. A famous journalist tested one. Fetching a water bottle took over a minute. And then the discovery: <strong>everything the robot did was being driven, live, by an employee in a headset in another building.</strong> The internet laughed — "$20,000 to let a stranger wander my house!"</p>
+    <p>But the company never denied it. That <em>is</em> the plan: the human drivers are the robot's <em>teachers</em>. Every session is recorded and teaches the robot to do the chore alone next time. Early buyers aren't buying a finished servant — they're hiring an apprentice, plus the tutor.</p>
   </div>
-  <p>Once you see this pattern, you see it everywhere. The driverless taxis in American cities? They drive themselves — but a team of about seventy trained helpers sits in control rooms around the clock, and when a car meets something confusing (a half-closed road, a strange construction zone), it asks them for guidance <em>and gets an answer within seconds</em>. Little delivery robots rolling across university campuses? For years, watched over by people in another country. <strong>Humans-in-the-loop isn't a failure of the robot age. It IS the robot age — the stage of it we're living in now.</strong></p>
+  <p>Once you see the pattern, it's everywhere. Driverless taxis? A team of about seventy trained helpers sits in control rooms, answering cars' questions within seconds when something confuses them. Campus delivery robots? Watched for years by people in another country. <strong>Humans-in-the-loop isn't a failure of the robot age. It IS the robot age — the stage we're living in now.</strong></p>
 
   <h2>2. Why robots need a human safety net</h2>
-  <p>Here's the business logic, and it's very simple. Suppose a robot does a task correctly nine times out of ten. Sounds good — but no shop, hospital or warehouse can accept a worker who fails every tenth time and then just… stands there, stuck. That one-in-ten is the wall between "impressive demo" and "actually useful."</p>
-  <p>The fix: when the robot gets stuck, <strong>a trained human takes over remotely, sorts it out in a minute, and hands control back.</strong> Suddenly the robot's work is dependable today — years before the robot itself is perfect. The human is the safety net that lets robots leave the laboratory and start working in the real world <em>now</em>.</p>
-  <p>And remember the gold from Lesson 4: every one of those rescues is recorded. The robot got saved — and the library got one more page about exactly the situations robots find hardest. <strong>The safety net is also the school.</strong></p>
+  <p>The business logic is simple. Say a robot does a task right nine times out of ten. Sounds good — but no shop or warehouse can accept a worker who fails every tenth time and then just stands there, stuck. That one-in-ten is the wall between "impressive demo" and "actually useful."</p>
+  <p>The fix: when the robot gets stuck, <strong>a trained human takes over remotely, sorts it out in a minute, hands control back.</strong> The robot's work becomes dependable today — years before the robot is perfect. And every rescue is recorded: one more page for the library, about exactly the situations robots find hardest. <strong>The safety net is also the school.</strong></p>
 
   <h2>3. A call center for hands</h2>
-  <p>Now — who provides these human safety nets? A robot company could hire and train its own operators… in every time zone… covering nights, weekends, sick days… That's a whole second company to run, and it has nothing to do with building robots.</p>
-  <p>You already know how the world solves this kind of problem. When you call your bank at 3 a.m., a trained person answers — because banks don't each build their own overnight phone team; they use shared, professional call centers.</p>
+  <p>Who provides these safety nets? A robot company could hire its own operators… in every time zone… covering nights and sick days… That's a whole second company to run. You know how the world solves this: when you call your bank at 3 a.m., a trained person answers — banks share professional call centers instead of each building their own.</p>
   <div class="analogy"><span class="lab">☎️ The picture to keep</span>
   <p>Aktoria runs a <strong>call center for hands</strong>. Rows of trained people on shift, day and night — but instead of answering phones, each seat is driving a robot somewhere in the world. A robot gets stuck at 3 a.m. in an American warehouse? It "rings" the operations floor, a trained operator takes its hands for a few minutes, the job continues. The customer's robots get round-the-clock human skill — without the customer hiring a single operator.</p></div>
-  <p>The clever part is the clock. Aktoria's operators work from <strong>India, Mexico and the USA</strong> — so when America sleeps, India is wide awake. Three countries passing the shift around the globe like a family shop that never closes. And these are trained, in-house staff — Aktoria's own people, drilled on the customers' robots and tasks — because (as Lesson 6 will show you) <em>who</em> does the driving turns out to matter enormously.</p>
-  <p>One more thing worth saying plainly: <strong>"robot operator" is a brand-new profession</strong>, being created right now, the way "call center agent" was created a generation ago — skilled work you can do from anywhere, teaching machines with your hands. Your son isn't just running a company; he's helping invent a job.</p>
+  <p>The clever part is the clock: operators in <strong>India, Mexico and the USA</strong> — when America sleeps, India is wide awake. Three countries passing the shift around the globe like a family shop that never closes. And they're trained, in-house staff, because <em>who</em> does the driving matters enormously (Lesson 6 shows why).</p>
+  <p><strong>"Robot operator" is a brand-new profession</strong>, being invented right now — skilled work, teaching machines with your hands. Your son isn't just running a company; he's helping invent a job.</p>
 
   <h2>🎬 Watch the open secret with your own eyes</h2>
   <div class="video" data-vid="f3c4mQty_so" data-vt="Journalist tests the $20,000 home robot">
@@ -638,8 +628,8 @@ footer{margin-top:60px;padding-top:20px;border-top:1.5px solid var(--line);color
   <p class="standfirst">The second half of what Aktoria sells: the recorded lessons themselves. Time to open one up and look inside.</p>
 
   <h2>1. What one robot lesson actually is</h2>
-  <p>The industry's word for one recorded lesson is an <strong>"episode."</strong> When Karan says "we delivered a batch of episodes," here is what he means.</p>
-  <p>Imagine filming yourself making one roti — but with a helper who <em>also</em> writes down, fifty times every second, the exact position of your shoulder, elbow, wrist and fingers, and how hard you're pinching the dough. The video <strong>plus</strong> that notebook of numbers, for one single roti, start to finish — that bundle is one episode.</p>
+  <p>The industry's word for one recorded lesson is an <strong>"episode."</strong> When Karan says "we delivered a batch of episodes," here's what he means.</p>
+  <p>Imagine filming yourself making one roti — while a helper <em>also</em> writes down, fifty times every second, the exact position of your shoulder, elbow, wrist and fingers, and how hard you're pinching the dough. The video <strong>plus</strong> that notebook of numbers, for one roti, start to finish — that's one episode.</p>
 
   <div class="widget">
     <span class="lab">🔬 Look inside a live episode</span>
@@ -654,8 +644,8 @@ footer{margin-top:60px;padding-top:20px;border-top:1.5px solid var(--line);color
     <div class="epcount" id="epcount">snapshot #0 of this episode</div>
   </div>
 
-  <p>Notice the wrist cameras — the robot films its own hands close-up, because during delicate work its arms block the main camera's view. A movie shows 24 pictures per second; an episode writes everything down 50 times per second — <em>finer than cinema</em>, because a hand pouring tea moves too much between two coarse snapshots.</p>
-  <p>This also answers a very sensible question: <strong>"Why can't robots just watch cooking videos on YouTube?"</strong> Because an ordinary video shows <em>what happened</em> — but not the angles, distances and grip pressure. The robot needs the notebook, not just the film. That's why special recording tools exist… and why this data can't simply be scraped off the internet. It has to be <em>made</em>.</p>
+  <p>A movie shows 24 pictures per second; an episode writes everything down 50 times per second — <em>finer than cinema</em>, because a pouring hand moves too much between two coarse snapshots.</p>
+  <p>This answers a sensible question: <strong>"Why can't robots just watch YouTube cooking videos?"</strong> Because ordinary video shows <em>what happened</em> — not the angles, distances and grip pressure. The robot needs the notebook, not just the film. This data can't be scraped off the internet. It has to be <em>made</em>.</p>
 
   <h2>2. How many lessons does a robot need?</h2>
   <div class="numrow">
@@ -663,18 +653,18 @@ footer{margin-top:60px;padding-top:20px;border-top:1.5px solid var(--line);color
     <div class="numcell"><div class="numbig">10,000 hours</div><div class="numcap">of episodes behind one of today's best general robot brains — and that's barely ONE year of experience</div></div>
     <div class="numcell"><div class="numbig">1,000,000</div><div class="numcap">episodes when the world's labs once pooled everything they had. The chatbots' library is still ~100,000× bigger</div></div>
   </div>
-  <p>See the shape of it? A single chore needs about fifty lessons — you wouldn't let someone drive alone after one driving lesson either. A <em>general</em> robot brain needs thousands of hours. And once a good general brain exists, teaching it each <em>new</em> chore takes just a few hours of fresh episodes — like an experienced cook who only needs to see a new dish once or twice. Those fresh episodes, ordered again and again, are exactly the repeat business a data company lives on.</p>
+  <p>See the shape? One chore needs about fifty lessons — you wouldn't let someone drive alone after one lesson either. A <em>general</em> robot brain needs thousands of hours. And once one exists, each <em>new</em> chore takes just a few hours of fresh episodes — like an experienced cook seeing a new dish once or twice. Those fresh episodes are the repeat business a data company lives on.</p>
 
   <h2>3. The two rules of good lessons</h2>
-  <p><strong>Rule one: variety.</strong> A cook who has only ever cooked in her own kitchen panics in her sister's kitchen — different stove, different drawers, dimmer light. A cook who has cooked in fifty kitchens can cook anywhere. Robots are the first kind of cook unless you deliberately show them many kitchens. So collectors keep moving the cup, changing the tablecloth, dimming the lights — fifty <em>slightly different</em> lessons teach the robot to <em>cope</em>; fifty identical ones only teach it to repeat.</p>
-  <p><strong>Rule two: quality.</strong> A photocopier copies the smudges along with the letters — and a small child copies not just your words but your accent. The robot is both: if the demonstrator hesitates, fumbles, or takes a lazy shortcut, the robot faithfully learns to hesitate, fumble and shortcut. It was even measured: <strong>200 lessons from one calm expert taught a better robot than 300 lessons from six careless helpers.</strong> Now you know why Aktoria insists on trained, in-house operators instead of random freelancers — the robot photocopies its teacher.</p>
-  <p style="font-size:.95rem;color:var(--muted)">("Can't they practice inside a computer game instead?" They do — some robot hands have practiced for centuries inside simulations. But dreams are never quite like the real pitch: the real cloth is stickier, the real light glares. Dream-practice helps; real human-guided lessons on real objects remain the gold.)</p>
+  <p><strong>Rule one: variety.</strong> A cook who has only cooked in her own kitchen panics in her sister's. A cook who has cooked in fifty kitchens can cook anywhere. So collectors keep moving the cup, changing the tablecloth, dimming the lights — fifty <em>slightly different</em> lessons teach the robot to <em>cope</em>; fifty identical ones only teach it to repeat.</p>
+  <p><strong>Rule two: quality.</strong> A photocopier copies the smudges along with the letters. If the demonstrator hesitates, fumbles or takes shortcuts, the robot faithfully learns to hesitate, fumble and shortcut. It's been measured: <strong>200 lessons from one calm expert beat 300 from six careless helpers.</strong> Now you know why Aktoria insists on trained, in-house operators — the robot photocopies its teacher.</p>
+  <p style="font-size:.95rem;color:var(--muted)">("Can't they practice inside a computer game?" They do. But dreams are never quite the real pitch — the real cloth is stickier, the real light glares. Real human-guided lessons on real objects remain the gold.)</p>
 
   <h2>4. The three recording tools — Aktoria sells all three</h2>
-  <p><strong>Tool 1: The robot itself, driven by a human</strong> — everything from Lesson 4. The gold standard, because the lesson happened in the robot's own body: its cameras, its joints, its grip. Slower and more expensive — you need a robot and a trained operator — but nothing beats it.</p>
-  <p><strong>Tool 2: The magic tongs.</strong> A clever handheld tool: a robot's gripper you hold in your hand, with a small camera on top. No robot in the room at all — a person just <em>does the chore</em> holding it, squeezing it like kitchen tongs, and the camera plus a motion sensor record everything a robot will later need. It costs like a phone instead of like a car, and one person collects about <strong>three times more lessons per hour</strong> than by driving a robot. Each lesson is literally one video file. Robots trained purely on these hand-tool lessons have washed dishes and folded sweaters.</p>
-  <p><strong>Tool 3: Camera glasses.</strong> An ordinary-looking pair of glasses with two little cameras where your two eyes are — two, because that's how depth is judged (close one eye and try pouring water into a far-away glass!) — plus a motion sensor like the inner ear that tells you you're turning even with eyes shut. A person simply wears them and lives: cooking, folding, tidying. The robot later relives the day <em>through human eyes</em>. This is the cheapest lesson-maker of all — and the big realization behind it is lovely: humanity performs billions of hours of hand-work every day; glasses can finally harvest it. Even mixing just 90 minutes of glasses-recordings into a robot's training has made it dramatically better at those chores.</p>
-  <p>On Karan's website these are the three data products: robot episodes, handheld-gripper episodes, and "stereo ego" — which you can now decode like an engineer: <em>stereo</em> = two eyes, <em>ego</em> = filmed from the doer's own point of view.</p>
+  <p><strong>Tool 1: The robot itself, driven by a human</strong> — Lesson 4's teleoperation. The gold standard, because the lesson happened in the robot's own body: its cameras, its joints, its grip. Slower and more expensive, but nothing beats it.</p>
+  <p><strong>Tool 2: The magic tongs.</strong> A robot's gripper you hold in your hand, with a small camera on top. No robot in the room — a person just <em>does the chore</em> holding it, and the camera plus motion sensor record everything a robot will later need. Costs like a phone instead of a car, and collects about <strong>three times more lessons per hour</strong>. Robots trained purely on these have washed dishes and folded sweaters.</p>
+  <p><strong>Tool 3: Camera glasses.</strong> Glasses with two little cameras where your eyes are — two, because that's how depth is judged (close one eye and try pouring into a far glass!) — plus a motion sensor like your inner ear. A person just wears them and lives: cooking, folding, tidying. The robot later relives the day <em>through human eyes</em>. The lovely realization: humanity performs billions of hours of hand-work daily — glasses can finally harvest it.</p>
+  <p>On Karan's website these are the three data products. "Stereo ego" you can now decode like an engineer: <em>stereo</em> = two eyes, <em>ego</em> = from the doer's point of view.</p>
 
   <h2>🎬 Watch all three kinds of lesson</h2>
   <div class="video" data-vid="zMNumQ45pJ8" data-vt="Robot does chores BY ITSELF after ~50 lessons">
@@ -691,11 +681,11 @@ footer{margin-top:60px;padding-top:20px;border-top:1.5px solid var(--line);color
   </div>
 
   <h2>5. Who buys lessons? Everyone — for fortunes</h2>
-  <p>The buyers are the companies building robot brains — and money is pouring into them. Robot-brain startups barely a few years old are valued in the <em>billions</em>. One famous car company pays people <strong>up to $48 an hour</strong> to demonstrate movements for its humanoid robot all day (they must be a certain height, so their movements fit the robot's body!). In China there are whole "robot schools" — halls with a hundred robots and mock kitchens and shops, recording tens of thousands of lessons every day. Teaching robots has become an industry.</p>
+  <p>The buyers are companies building robot brains — and money is pouring into them; startups a few years old are valued in the <em>billions</em>. One famous car company pays people <strong>up to $48 an hour</strong> to demonstrate movements for its humanoid all day (they must be a certain height, so their movements fit the robot's body!). In China there are whole "robot schools" — halls of robots and mock kitchens recording tens of thousands of lessons a day. Teaching robots has become an industry.</p>
   <div class="story"><span class="lab">📖 One last story — the gold rush rule</span>
-    <p>In every gold rush, they say, the surest money was made by the people selling picks and shovels to the miners.</p>
-    <p>It just happened, in front of everyone, in the chatbot era: a company that built <em>no</em> chatbots — it only prepared and organized training data for everyone else's — grew so valuable that one of the world's biggest tech companies paid <strong>fourteen billion dollars</strong> for half of it.</p>
-    <p>Now dozens of rich robot-brain companies are racing to build the winning robot. Every single one needs the same shovel: recorded human lessons. Selling that shovel to all of them, without betting on which miner strikes gold — that seat is open. <strong>That's the seat Aktoria is playing for.</strong></p>
+    <p>In every gold rush, the surest money was made selling picks and shovels to the miners.</p>
+    <p>It just happened in the chatbot era: a company that built <em>no</em> chatbots — it only prepared training data for everyone else's — became so valuable that a tech giant paid <strong>fourteen billion dollars</strong> for half of it.</p>
+    <p>Now dozens of rich robot-brain companies are racing. Every one needs the same shovel: recorded human lessons. Selling the shovel to all of them, without betting on which miner wins — <strong>that's the seat Aktoria is playing for.</strong></p>
   </div>
 
   <h2>Check yourself</h2>
@@ -726,30 +716,29 @@ footer{margin-top:60px;padding-top:20px;border-top:1.5px solid var(--line);color
   <p class="standfirst">You've earned this lesson. Every piece you've learned now clicks into place — and at the end, there's something for your wall.</p>
 
   <h2>1. Decoding the five strange words</h2>
-  <p>Aktoria's website greets the world with five words: <strong>"Human as API for Robots."</strong> Gibberish to most people. Not to you — you just need the one missing word.</p>
-  <p>An <strong>API</strong> is tech-speak for a <em>socket</em>. You don't build a power station to run your fridge — you plug into the wall, and electricity flows, and you pay for what you use. An API is that, for services: plug in, and the thing you need flows on demand.</p>
-  <p>So "Human as API for Robots" means: <strong>robot companies can plug into Aktoria, and trained human skill flows to their robots like electricity from a socket.</strong> A robot gets stuck — human skill flows in for two minutes — the robot carries on. No robot company has to build its own "power station" of operators. The way one taxi app turned "a driver" into a button you press, Aktoria turns "a skilled robot operator" into a socket any robot company can plug into.</p>
+  <p>Aktoria's website greets the world with five words: <strong>"Human as API for Robots."</strong> Gibberish to most people. You just need the one missing word.</p>
+  <p>An <strong>API</strong> is tech-speak for a <em>socket</em>. You don't build a power station to run your fridge — you plug into the wall, electricity flows, you pay for what you use.</p>
+  <p>So it means: <strong>robot companies plug into Aktoria, and trained human skill flows to their robots like electricity from a socket.</strong> A robot gets stuck — human skill flows in for two minutes — the robot carries on. The way a taxi app turned "a driver" into a button, Aktoria turns "a skilled robot operator" into a socket.</p>
 
   <h2>2. The three things on the shelf</h2>
   <p>Everything Aktoria sells, you now understand from the inside:</p>
-  <p><strong>① The remote control</strong> — the software from Lesson 4. Driving robots over the internet with delay so tiny (a fraction of a blink, even across a country) that the robot's hands feel glued to the operator's. This is the hard engineering the rest stands on.</p>
-  <p><strong>② The people</strong> — the call center for hands from Lesson 5. Trained, in-house operators in India, Mexico and the USA, passing the shift around the clock. Robot companies plug in instead of building their own team — at roughly half the cost of doing it themselves.</p>
-  <p><strong>③ The lessons</strong> — the episodes from Lesson 6, in all three flavors: real-robot episodes, magic-tongs episodes, and camera-glasses recordings — made to research quality, because the robot photocopies its teacher.</p>
+  <p><strong>① The remote control</strong> — Lesson 4's software. Delay so tiny, even across a country, that the robot's hands feel glued to the operator's. The hard engineering the rest stands on.</p>
+  <p><strong>② The people</strong> — Lesson 5's call center for hands. Trained operators in India, Mexico and the USA, around the clock — at roughly half the cost of a robot company doing it itself.</p>
+  <p><strong>③ The lessons</strong> — Lesson 6's episodes, in all three flavors: robot, magic tongs, camera glasses — research quality, because the robot photocopies its teacher.</p>
   <div class="analogy"><span class="lab">🔁 And here's the beautiful machine they form together</span>
   <p>Operators drive robots (that's paid work) → every session becomes recorded lessons (paid again) → the lessons make robots smarter → smarter robots get deployed in more places → which needs more operators behind them → which produces more lessons…</p>
   <p><strong>Each turn of the wheel makes the next turn bigger.</strong> The remote driving of today literally manufactures the robot intelligence of tomorrow — and Aktoria is paid at every step of the circle.</p></div>
 
   <h2>3. The part that's about your boy</h2>
   <div class="story"><span class="lab">📖 The story you already know the beginning of</span>
-    <p>Two robotics students at one of the world's great robotics universities in America kept seeing the same thing: everyone was building robots — and everyone was quietly struggling with the same unglamorous problems. Who drives the robot when it gets stuck at 3 a.m.? Where do the training lessons come from? Who does the driving <em>well</em>?</p>
-    <p>So Karan — <strong>Jaskaran Singh Walia</strong>, with research behind him at some of the best labs in the world — and his co-founder <strong>Shreenabh</strong> decided not to build yet another robot. They built the thing every robot company needs: the remote controls, the people, and the lessons.</p>
-    <p>They applied to <strong>Y Combinator</strong> — the famous startup school in San Francisco that picks roughly one company in a hundred, and that backed Airbnb, Stripe and Dropbox when those were just a few people with an idea. <strong>Aktoria got in.</strong> Today it's a small team in San Francisco, working with robot companies, with Y Combinator and the well-known investment firm <strong>Accel</strong> behind it.</p>
-    <p>One more thing, because mothers worry: when you hear the company "raised money," it is not a loan. Investors bought small ownership shares because they believe the company will grow. Nothing has to be paid back — the investors win only if Aktoria wins.</p>
+    <p>Two robotics students at one of America's great robotics universities kept seeing the same thing: everyone was building robots — and everyone was quietly struggling with the same unglamorous problems. Who drives the robot when it gets stuck at 3 a.m.? Where do the lessons come from?</p>
+    <p>So Karan — <strong>Jaskaran Singh Walia</strong> — and his co-founder <strong>Shreenabh</strong> decided not to build yet another robot. They built what every robot company needs: the remote controls, the people, and the lessons.</p>
+    <p>They applied to <strong>Y Combinator</strong> — the famous startup school in San Francisco that picks about one company in a hundred, and that backed Airbnb, Stripe and Dropbox when they were just a few people with an idea. <strong>Aktoria got in.</strong> Today it's a small team in San Francisco, with Y Combinator and the well-known investment firm <strong>Accel</strong> behind it.</p>
+    <p>And because mothers worry: "raised money" is not a loan. Investors bought small ownership shares because they believe it will grow. Nothing is paid back — they win only if Aktoria wins.</p>
   </div>
-  <p>And when another company's CEO publicly told the world that Aktoria runs this better than robot companies can themselves — that's the sound of the business working: other builders handing the hard, unglamorous part to your son's team, gladly.</p>
 
   <h2>4. An honest answer to your last question</h2>
-  <p><em>"So when do I get my robot helper?"</em> The honest answer: nobody knows. Some serious people say a few years; other serious people say much, much longer — today's robots are still apprentices, and you've seen exactly why. But here is what makes Aktoria's seat at the table so good: <strong>it doesn't need to know.</strong> If robots arrive fast, they'll arrive trained on lessons like Aktoria's. If they arrive slowly, the world will need human safety nets behind them for years — which is Aktoria's other product. Either future needs what they sell. Shovels, in every weather.</p>
+  <p><em>"So when do I get my robot helper?"</em> Honestly: nobody knows. Some serious people say a few years; others say much longer. But Aktoria's seat is good either way: <strong>it doesn't need to know.</strong> If robots arrive fast, they arrive trained on lessons like Aktoria's. If slowly, the world needs human safety nets for years — Aktoria's other product. Shovels, in every weather.</p>
 
   <h2>5. The final quiz — say the sentence</h2>
   <p>Fill in the three blanks by tapping the right word. This is the sentence from Day One — watch it become yours.</p>
@@ -826,7 +815,7 @@ document.getElementById('loginform').addEventListener('submit',function(ev){
   var u=(document.getElementById('user').value||'').trim().toLowerCase();
   var p=(document.getElementById('pass').value||'').trim().toLowerCase();
   if(u==='mom' && p==='mom'){ sset('ars_login','1'); showApp(); }
-  else{ document.getElementById('loginerr').textContent='Hmm, not quite — it’s the three-letter name Karan calls you, in both boxes. \u{1F60A}'; }
+  else{ document.getElementById('loginerr').textContent='That’s not it — ask Karan for the secret word. \u{1F60A}'; }
 });
 if(sget('ars_login')==='1'){ showApp(); }
 
