@@ -1,0 +1,1018 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>Aktoria Robot School</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🤖</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,500;0,7..72,600;0,7..72,700;1,7..72,400;1,7..72,500&display=swap">
+<style>
+:root{
+  --paper:#FBF7F0; --card:#FFFFFF; --ink:#2A2520; --muted:#6E6457; --line:#E7DFD2;
+  --teal:#0E7466; --teal-deep:#0A5A50; --teal-soft:#E3F0ED;
+  --amber:#D98A1F; --amber-soft:#FBEED7; --amber-line:#EED9B4;
+  --good:#2E7D46; --shadow:0 1px 3px rgba(42,37,32,.08), 0 6px 20px rgba(42,37,32,.06);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#181C1B; --card:#212726; --ink:#EFE9DE; --muted:#A69C8E; --line:#37403D;
+    --teal:#4CB8A4; --teal-deep:#7FD0C1; --teal-soft:#20342F;
+    --amber:#E8B25C; --amber-soft:#33291A; --amber-line:#4A3B22;
+    --good:#69B97F; --shadow:0 1px 3px rgba(0,0,0,.4);
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#181C1B; --card:#212726; --ink:#EFE9DE; --muted:#A69C8E; --line:#37403D;
+  --teal:#4CB8A4; --teal-deep:#7FD0C1; --teal-soft:#20342F;
+  --amber:#E8B25C; --amber-soft:#33291A; --amber-line:#4A3B22;
+  --good:#69B97F; --shadow:0 1px 3px rgba(0,0,0,.4);
+}
+*{box-sizing:border-box}
+html{height:100%}
+body{
+  margin:0; background:var(--paper); color:var(--ink);
+  font-family:"Literata", Georgia, "Times New Roman", serif;
+  font-size:18.5px; line-height:1.65;
+  padding:0 16px calc(40px + env(safe-area-inset-bottom,0px));
+}
+h1,h2,h3,.brand,.btn,.chip,.eyebrow,.lcard,.navbtn,.wordchip,.numbig,.q-opt{
+  font-family:"Bricolage Grotesque","Trebuchet MS",system-ui,sans-serif;
+}
+h1{font-size:1.9rem;line-height:1.15;font-weight:800;text-wrap:balance;margin:.2em 0 .35em}
+h2{font-size:1.42rem;line-height:1.2;font-weight:700;text-wrap:balance;margin:2em 0 .5em}
+h3{font-size:1.12rem;font-weight:700;margin:1.6em 0 .4em}
+p{margin:.85em 0}
+a{color:var(--teal);text-decoration-thickness:1.5px;text-underline-offset:2px}
+img{max-width:100%}
+.wrap{max-width:690px;margin:0 auto}
+.eyebrow{display:block;font-size:.78rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);margin-bottom:.5em}
+.standfirst{font-size:1.12rem;color:var(--muted);font-style:italic;margin-top:0}
+strong{font-weight:700}
+.divider{border:0;border-top:1.5px solid var(--line);margin:2.4em 0}
+
+/* header */
+.topbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:var(--paper);
+  margin:0 -16px;padding:10px 16px 8px;border-bottom:1.5px solid var(--line)}
+.topbar-in{max-width:690px;margin:0 auto;display:flex;align-items:center;gap:12px}
+.brand{font-weight:800;font-size:1.02rem;color:var(--ink);text-decoration:none;display:flex;align-items:center;gap:8px;background:none;border:none;padding:0;cursor:pointer}
+.brand .logo{width:30px;height:30px;border-radius:9px;background:var(--teal);color:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:17px}
+.progresswrap{flex:1;height:9px;border-radius:99px;background:var(--line);overflow:hidden}
+.progressbar{height:100%;width:0%;border-radius:99px;background:linear-gradient(90deg,var(--teal),var(--amber));transition:width .5s ease}
+.proglabel{font-size:.8rem;color:var(--muted);font-family:"Bricolage Grotesque",sans-serif;font-weight:600;min-width:34px;text-align:right}
+
+/* screens */
+.screen{display:none;padding-top:26px}
+.screen.active{display:block}
+
+/* login */
+#login{min-height:82vh;display:none;align-items:center;justify-content:center}
+#login.active{display:flex}
+.login-card{background:var(--card);border:1.5px solid var(--line);border-radius:22px;box-shadow:var(--shadow);
+  padding:34px 26px;max-width:400px;width:100%;text-align:center}
+.login-card .big{font-size:3.2rem;line-height:1;margin-bottom:8px}
+.login-card h1{font-size:1.6rem}
+.login-card p{color:var(--muted);font-size:1rem}
+.field{display:block;text-align:left;margin:14px 0 4px;font-family:"Bricolage Grotesque",sans-serif;font-weight:600;font-size:.9rem}
+input[type=text],input[type=password]{
+  width:100%;padding:13px 14px;font-size:1.05rem;border:1.5px solid var(--line);border-radius:12px;
+  background:var(--paper);color:var(--ink);font-family:inherit}
+input:focus{outline:2.5px solid var(--teal);outline-offset:1px;border-color:var(--teal)}
+.btn{display:inline-block;background:var(--teal);color:#fff;border:none;border-radius:13px;
+  padding:13px 22px;font-size:1.05rem;font-weight:700;cursor:pointer;width:100%;margin-top:18px}
+.btn:active{transform:translateY(1px)}
+:root[data-theme="dark"] .btn{color:#10201C}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .btn{color:#10201C}}
+.btn-small{width:auto;padding:10px 18px;font-size:.95rem;margin-top:0}
+.loginerr{color:#B3402E;font-size:.95rem;min-height:1.4em;margin:.6em 0 0}
+.hint{font-size:.85rem;color:var(--muted);margin-top:14px}
+
+/* home */
+.hello{font-size:2.1rem;margin-bottom:.1em}
+.goalcard{background:var(--amber-soft);border:1.5px solid var(--amber-line);border-radius:18px;padding:20px 22px;margin:22px 0}
+.goalcard .lab{font-family:"Bricolage Grotesque",sans-serif;font-weight:700;font-size:.82rem;letter-spacing:.1em;text-transform:uppercase;color:var(--amber)}
+.goalcard blockquote{margin:.5em 0 0;font-size:1.13rem;font-style:italic;line-height:1.55}
+.partlabel{margin-top:2.2em}
+.lcard{display:flex;gap:14px;align-items:center;background:var(--card);border:1.5px solid var(--line);
+  border-radius:16px;padding:15px 16px;margin:10px 0;cursor:pointer;width:100%;text-align:left;color:var(--ink);box-shadow:var(--shadow)}
+.lcard .lnum{flex:none;width:42px;height:42px;border-radius:12px;background:var(--teal-soft);color:var(--teal-deep);
+  display:flex;align-items:center;justify-content:center;font-weight:800;font-size:1.1rem}
+.lcard.done .lnum{background:var(--teal);color:#fff}
+.lcard .lt{font-weight:700;font-size:1.02rem;line-height:1.25}
+.lcard .lm{font-size:.83rem;color:var(--muted);font-weight:500;margin-top:2px}
+.lcard .tick{margin-left:auto;flex:none;font-size:1.2rem;color:var(--good);visibility:hidden}
+.lcard.done .tick{visibility:visible}
+
+/* content components */
+.story{background:var(--amber-soft);border:1.5px solid var(--amber-line);border-radius:16px;padding:18px 20px;margin:1.4em 0}
+.story .lab{font-family:"Bricolage Grotesque",sans-serif;font-weight:700;font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;color:var(--amber);display:block;margin-bottom:.4em}
+.story p{margin:.6em 0}
+.analogy{border-left:4px solid var(--teal);background:var(--teal-soft);border-radius:0 14px 14px 0;padding:14px 18px;margin:1.4em 0}
+.analogy .lab{font-family:"Bricolage Grotesque",sans-serif;font-weight:700;font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);display:block;margin-bottom:.3em}
+.analogy p{margin:.5em 0}
+.numrow{display:flex;flex-wrap:wrap;gap:10px;margin:1.3em 0}
+.numcell{flex:1 1 140px;background:var(--card);border:1.5px solid var(--line);border-radius:14px;padding:14px 14px;box-shadow:var(--shadow)}
+.numbig{font-size:1.45rem;font-weight:800;color:var(--teal-deep);line-height:1.1;font-variant-numeric:tabular-nums}
+.numcap{font-size:.84rem;color:var(--muted);margin-top:4px;line-height:1.35}
+.tryit{background:var(--card);border:2px dashed var(--teal);border-radius:16px;padding:18px 20px;margin:1.5em 0}
+.tryit .lab{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:.85rem;letter-spacing:.08em;text-transform:uppercase;color:var(--teal);display:block;margin-bottom:.4em}
+details.reveal{background:var(--card);border:1.5px solid var(--line);border-radius:14px;padding:0;margin:12px 0;box-shadow:var(--shadow)}
+details.reveal summary{cursor:pointer;padding:15px 18px;font-family:"Bricolage Grotesque",sans-serif;font-weight:700;font-size:1rem;list-style:none;display:flex;gap:10px;align-items:flex-start}
+details.reveal summary::before{content:"❓";flex:none}
+details.reveal summary::-webkit-details-marker{display:none}
+details.reveal[open] summary{border-bottom:1.5px solid var(--line)}
+details.reveal .ans{padding:12px 18px 16px;color:var(--ink)}
+details.reveal .ans p{margin:.4em 0}
+.newwords{background:var(--card);border:1.5px solid var(--line);border-radius:16px;padding:16px 18px;margin:2em 0 1em;box-shadow:var(--shadow)}
+.newwords .lab{font-family:"Bricolage Grotesque",sans-serif;font-weight:700;font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:.6em}
+.wordchip{display:block;margin:.55em 0;font-size:.95rem;font-weight:500;font-family:"Literata",serif}
+.wordchip b{font-family:"Bricolage Grotesque",sans-serif;font-weight:700;background:var(--teal-soft);color:var(--teal-deep);border-radius:8px;padding:2px 8px;margin-right:6px}
+
+/* video cards */
+.video{background:var(--card);border:1.5px solid var(--line);border-radius:16px;overflow:hidden;margin:1.4em 0;box-shadow:var(--shadow)}
+.vthumb{position:relative;display:block;width:100%;aspect-ratio:16/9;background:#0e1514;border:none;cursor:pointer;padding:0;max-width:100%}
+.vthumb img{width:100%;height:100%;object-fit:cover;display:block;opacity:.92}
+.vthumb .play{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
+.vthumb .play span{width:64px;height:64px;border-radius:50%;background:rgba(14,116,102,.92);display:flex;align-items:center;justify-content:center}
+.vthumb .play svg{margin-left:5px}
+.video iframe{width:100%;aspect-ratio:16/9;border:0;display:block}
+.vmeta{padding:13px 16px 14px}
+.vtitle{font-family:"Bricolage Grotesque",sans-serif;font-weight:700;font-size:1rem;line-height:1.3}
+.vwatch{font-size:.9rem;color:var(--muted);margin-top:5px;line-height:1.45}
+.vlink{font-size:.85rem;font-family:"Bricolage Grotesque",sans-serif;font-weight:600;display:inline-block;margin-top:8px}
+
+/* lesson nav */
+.lessonfoot{display:flex;gap:10px;margin:2.2em 0 0;flex-wrap:wrap}
+.navbtn{flex:1;min-width:130px;background:var(--card);color:var(--ink);border:1.5px solid var(--line);border-radius:13px;padding:13px 16px;font-size:.98rem;font-weight:700;cursor:pointer;box-shadow:var(--shadow)}
+.navbtn.primary{background:var(--teal);border-color:var(--teal);color:#fff}
+:root[data-theme="dark"] .navbtn.primary{color:#10201C}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .navbtn.primary{color:#10201C}}
+.donebtn{width:100%;margin:2em 0 0;background:var(--card);border:2px solid var(--teal);color:var(--teal-deep);border-radius:14px;padding:14px;font-size:1.02rem;font-weight:700;cursor:pointer;font-family:"Bricolage Grotesque",sans-serif}
+.donebtn.done{background:var(--teal);color:#fff}
+:root[data-theme="dark"] .donebtn.done{color:#10201C}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .donebtn.done{color:#10201C}}
+.tellkaran{background:var(--teal-soft);border-radius:16px;padding:16px 20px;margin:1.6em 0}
+.tellkaran .lab{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:.85rem;letter-spacing:.08em;text-transform:uppercase;color:var(--teal-deep);display:block;margin-bottom:.4em}
+
+/* interactives */
+.widget{background:var(--card);border:1.5px solid var(--line);border-radius:16px;padding:18px 18px;margin:1.5em 0;box-shadow:var(--shadow)}
+.widget .lab{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:.85rem;letter-spacing:.08em;text-transform:uppercase;color:var(--teal);display:block;margin-bottom:.6em}
+.chip{display:inline-block;background:var(--teal-soft);color:var(--teal-deep);border:1.5px solid transparent;border-radius:99px;padding:9px 16px;margin:4px 4px 4px 0;font-size:.95rem;font-weight:700;cursor:pointer}
+.chip:disabled{opacity:.45;cursor:default}
+.chip.picked{background:var(--teal);color:#fff}
+:root[data-theme="dark"] .chip.picked{color:#10201C}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .chip.picked{color:#10201C}}
+.rulereply{margin-top:10px;min-height:1.5em;font-size:1rem}
+.sentbox{background:var(--paper);border:1.5px solid var(--line);border-radius:12px;padding:14px 16px;font-size:1.08rem;min-height:3.2em;line-height:1.6}
+.lagpad{position:relative;height:250px;border-radius:14px;background:var(--paper);border:1.5px solid var(--line);overflow:hidden;touch-action:none;margin-top:10px}
+.lagdot{position:absolute;width:26px;height:26px;border-radius:50%;background:var(--amber);transform:translate(-50%,-50%);left:50%;top:50%;opacity:.85}
+.lagdot.hand{background:var(--teal);width:18px;height:18px;opacity:.55}
+.lagnote{font-size:.9rem;color:var(--muted);margin-top:8px;min-height:2.6em}
+.lagbtns{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.epgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
+.epcam{background:var(--paper);border:1.5px solid var(--line);border-radius:10px;padding:10px;text-align:center;font-size:1.6rem}
+.epcam .cl{display:block;font-size:.72rem;color:var(--muted);font-family:"Bricolage Grotesque",sans-serif;font-weight:600;margin-top:4px}
+.epnums{font-variant-numeric:tabular-nums;font-family:"Bricolage Grotesque",sans-serif;font-size:.85rem;color:var(--teal-deep);background:var(--paper);border:1.5px solid var(--line);border-radius:10px;padding:10px 12px;margin-top:8px;overflow-x:auto;white-space:nowrap}
+.epcount{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:1.1rem;color:var(--amber);margin-top:8px}
+
+/* quiz + certificate */
+.q-opt{display:inline-block;background:var(--card);border:1.5px solid var(--line);border-radius:99px;padding:9px 16px;margin:4px 4px 4px 0;font-size:.95rem;font-weight:700;cursor:pointer;color:var(--ink)}
+.q-opt.right{background:var(--teal);border-color:var(--teal);color:#fff}
+:root[data-theme="dark"] .q-opt.right{color:#10201C}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .q-opt.right{color:#10201C}}
+.q-opt.wrong{opacity:.4;text-decoration:line-through}
+.blank{display:inline-block;min-width:90px;border-bottom:2.5px solid var(--amber);text-align:center;font-weight:700;color:var(--teal-deep)}
+.cert{border:3px double var(--amber);border-radius:18px;background:var(--card);padding:28px 22px;text-align:center;margin:1.5em 0;box-shadow:var(--shadow)}
+.cert .crest{font-size:2.6rem}
+.cert h3{font-family:"Bricolage Grotesque",sans-serif;font-size:1.5rem;margin:.3em 0 .1em}
+.cert .cname{font-size:1.7rem;font-weight:700;font-style:italic;color:var(--teal-deep);margin:.4em 0;font-family:"Literata",serif}
+.cert .csub{color:var(--muted);font-size:.95rem}
+.cert .csig{margin-top:18px;font-style:italic;color:var(--muted);font-size:.95rem}
+footer{margin-top:60px;padding-top:20px;border-top:1.5px solid var(--line);color:var(--muted);font-size:.9rem;text-align:center}
+@media (max-width:430px){ body{font-size:17.5px} h1{font-size:1.65rem} }
+</style>
+</head>
+<body>
+
+<!-- ======================= LOGIN ======================= -->
+<div id="login" class="active">
+  <div class="login-card">
+    <div class="big">🤖💛</div>
+    <h1>Aktoria Robot School</h1>
+    <p>A little school made just for you, to show you what Karan builds all day.</p>
+    <form id="loginform">
+      <label class="field" for="user">Your name</label>
+      <input type="text" id="user" autocomplete="username" placeholder="mom">
+      <label class="field" for="pass">Secret word</label>
+      <input type="password" id="pass" autocomplete="current-password" placeholder="mom">
+      <div class="loginerr" id="loginerr"></div>
+      <button class="btn" type="submit">Open my school →</button>
+    </form>
+    <p class="hint">Hint: both answers are the name Karan calls you. Three letters. 😊</p>
+  </div>
+</div>
+
+<div id="app" hidden>
+<div class="topbar">
+  <div class="topbar-in">
+    <button class="brand" data-goto="home"><span class="logo">🤖</span> Robot School</button>
+    <div class="progresswrap"><div class="progressbar" id="progressbar"></div></div>
+    <span class="proglabel" id="proglabel">0%</span>
+  </div>
+</div>
+
+<main class="wrap">
+
+<!-- ======================= HOME ======================= -->
+<section class="screen" id="home">
+  <h1 class="hello">Hello, Mom 👋</h1>
+  <p class="standfirst">Welcome to your own little school. Seven short lessons, no exams, no hurry. Read one lesson with your chai, then tell Karan what you learned — he'll be so impressed.</p>
+
+  <div class="goalcard">
+    <span class="lab">🎯 The goal — one sentence</span>
+    <blockquote>"Karan's company, Aktoria, helps robot companies in two ways: their trained people <b>drive robots from far away</b> when robots can't manage alone — and every one of those sessions is <b>recorded as a lesson</b> that teaches robots to do the work themselves."</blockquote>
+    <p style="margin:.8em 0 0;font-size:.95rem;color:var(--muted)">Right now this sentence may sound strange. After seven lessons, you'll be able to say it — and explain every word of it — at any family dinner.</p>
+  </div>
+
+  <h2 class="partlabel">Part 1 · How machines learn</h2>
+  <button class="lcard" data-goto="lesson-1"><span class="lnum">1</span><span><span class="lt">Recipes vs. learning — two kinds of machines</span><br><span class="lm">☕ about 15 minutes · 1 video · 1 game</span></span><span class="tick">✓</span></button>
+  <button class="lcard" data-goto="lesson-2"><span class="lnum">2</span><span><span class="lt">ChatGPT — the sentence-finishing machine</span><br><span class="lm">☕ about 15 minutes · 1 video · try it yourself</span></span><span class="tick">✓</span></button>
+
+  <h2 class="partlabel">Part 2 · Robots</h2>
+  <button class="lcard" data-goto="lesson-3"><span class="lnum">3</span><span><span class="lt">Why robots are hard — and the empty library</span><br><span class="lm">☕☕ about 20 minutes · 2 videos</span></span><span class="tick">✓</span></button>
+  <button class="lcard" data-goto="lesson-4"><span class="lnum">4</span><span><span class="lt">Driving a robot from far away</span><br><span class="lm">☕ about 15 minutes · 2 videos · 1 game</span></span><span class="tick">✓</span></button>
+
+  <h2 class="partlabel">Part 3 · Karan's world</h2>
+  <button class="lcard" data-goto="lesson-5"><span class="lnum">5</span><span><span class="lt">The humans behind every robot</span><br><span class="lm">☕ about 15 minutes · 2 videos</span></span><span class="tick">✓</span></button>
+  <button class="lcard" data-goto="lesson-6"><span class="lnum">6</span><span><span class="lt">Robot lessons — the treasure everyone is buying</span><br><span class="lm">☕☕ about 20 minutes · 3 videos</span></span><span class="tick">✓</span></button>
+  <button class="lcard" data-goto="lesson-7"><span class="lnum">7</span><span><span class="lt">Aktoria — what your son actually built</span><br><span class="lm">☕ about 15 minutes · quiz + your certificate 🎓</span></span><span class="tick">✓</span></button>
+
+  <p style="margin-top:2em;color:var(--muted);font-size:.95rem">💡 <b>How to use this school:</b> one lesson per sitting is plenty. The videos open when you tap them — they're all real videos from universities and news channels. If English audio is fast, you can slow any YouTube video: tap the ⚙️ gear → Playback speed → 0.75.</p>
+</section>
+<!-- ======================= LESSON 1 ======================= -->
+<section class="screen" id="lesson-1">
+  <span class="eyebrow">Part 1 · Lesson 1</span>
+  <h1>Recipes vs. learning — two kinds of machines</h1>
+  <p class="standfirst">Before robots, before ChatGPT, there is one idea under all of it. It fits in your kitchen.</p>
+
+  <h2>1. Every machine you grew up with follows a recipe</h2>
+  <p>Think about your washing machine. Somebody in a factory, years ago, wrote its recipe: <em>soak for ten minutes, tumble, rinse, spin for five.</em> Every wash, it performs those exact steps, in that exact order. It has been doing this since the first automatic washing machine appeared in 1937 — and here is the important part: <strong>it never once opens the lid to check whether the clothes actually got clean.</strong> It follows the recipe; it never tastes the food.</p>
+  <p>A computer <strong>program</strong> is exactly this: a recipe card, written by a person, followed by a very obedient cook with no judgment of its own. The ATM, the microwave, the TV remote, the railway ticket machine — all recipe cards. For about seventy years, <em>all</em> software in the world worked this way. If a person could write the steps down, a machine could do them — faster and without ever getting tired.</p>
+  <div class="analogy"><span class="lab">🍳 Keep this picture</span>
+  <p>A program is a recipe card. The computer is an extremely obedient cook who does exactly what the card says, the same way every time — and can do <em>nothing</em> that is not on the card.</p></div>
+
+  <h2>2. Now try to write the recipe for something easy</h2>
+  <p>Here is where the whole story turns. Some things that feel effortless to you <strong>cannot be written down as steps at all.</strong> Try it yourself — write the recipe a computer could follow to answer one question: <em>"Is there a dog in this photo?"</em></p>
+
+  <div class="widget">
+    <span class="lab">🎮 A little game — write the dog rule</span>
+    <p style="margin-top:0">Tap a rule you'd write. I'll play the role of the annoyingly honest computer.</p>
+    <div id="dogrules">
+      <button class="chip" data-r="0">It has four legs</button>
+      <button class="chip" data-r="1">It has fur</button>
+      <button class="chip" data-r="2">It has a tail</button>
+      <button class="chip" data-r="3">It barks</button>
+    </div>
+    <div class="rulereply" id="dogreply"></div>
+  </div>
+
+  <p>Every rule fails. And yet any four-year-old — long before she can read — points at a dog and says "doggy!", even a breed she has never seen, even a dog curled up asleep showing no legs at all. She never learned a rule. She was <em>shown dogs</em>, again and again, until something inside her simply knew.</p>
+  <p>Scientists have a lovely phrase for this: <strong>"we know more than we can tell."</strong> You know how to recognize your own child's face in any crowd, at any age, from any angle — but you could not write down how you do it. That knowledge lives in experience, not in words. And no recipe card can hold it.</p>
+
+  <h2>3. The big switch: stop writing recipes, start showing examples</h2>
+  <p>For about fifty years, very clever programmers tried to make computers see by writing ever-more-clever rules. It barely worked. Computers misread roughly <strong>one photo out of every four.</strong></p>
+  <div class="story"><span class="lab">📖 A true story — the woman everyone doubted</span>
+    <p>About twenty years ago, a young scientist decided everyone had it backwards. The others were competing to write cleverer and cleverer rules — when what was missing, she said, was <em>examples</em>. Teaching a computer to see with a few thousand photos was like raising a child who is allowed only two picture books a year.</p>
+    <p>People warned her she was wasting her career. Her team spent years building a giant album: <strong>14 million photos</strong>, each labeled by hand — "dog," "cup," "bicycle" — by thousands of paid helpers around the world.</p>
+    <p>Then one team taught a computer <em>not with rules but with over a million of those labeled photos</em> — the way a child is shown dogs. Its mistakes dropped by nearly half in one jump. Within a few years, machines were misreading almost nothing. Every phone camera that finds faces today, every photo app that sorts your pictures, came from that switch.</p>
+  </div>
+  <p>This new way of building machines is called <strong>machine learning</strong>: instead of a person writing the recipe, the machine works the recipe out for itself — from thousands or millions of examples. This one idea is behind ChatGPT, behind the robots, and behind your son's company. <strong>The examples, not the cleverness, were the missing ingredient.</strong></p>
+
+  <h2>4. What "training" actually is (no magic, promise)</h2>
+  <p>You will hear the word <strong>training</strong> constantly around Karan. Here is what it physically means.</p>
+  <p>Inside the machine sit billions of tiny adjustable numbers — imagine <strong>billions of little tuning dials</strong>, like on an old radio. Training is a simple loop, repeated a mind-breaking number of times:</p>
+  <p style="text-align:center;font-weight:700;font-family:'Bricolage Grotesque',sans-serif">guess → check the answer → nudge every dial a hair's width → repeat</p>
+  <p>The machine looks at an example ("here is a photo — dog or cat?"), makes a guess, is told how wrong it was, and every dial gets turned a tiny amount in the direction that would have made the guess slightly less wrong. One nudge does nothing. Billions upon billions of nudges, guided by correct answers, slowly tune the static into a clear station.</p>
+  <div class="numrow">
+    <div class="numcell"><div class="numbig">175,000,000,000</div><div class="numcap">dials inside GPT-3, the machine behind the first ChatGPT</div></div>
+    <div class="numcell"><div class="numbig">5,500 years</div><div class="numcap">how long it would take you to touch each of those dials just once, one per second, day and night</div></div>
+    <div class="numcell"><div class="numbig">months</div><div class="numcap">of thousands of computers running non-stop — one top model reportedly cost over $100 million to train</div></div>
+  </div>
+  <div class="analogy"><span class="lab">🍲 You already did this</span>
+  <p>This is exactly how you perfected your own cooking. Nobody handed you the final recipe for your dal thirty years ago. Every pot you ever cooked nudged the salt, the heat, the timing a tiny bit — thousands of dinners, each one a small correction. You were <em>trained</em> by thirty years of examples. The machine does the same thing, just a million times an hour, with none of the taste and all of the patience.</p></div>
+
+  <h2>5. And a "model" is… a file</h2>
+  <p>The last word you need from this lesson: after training finishes, all those tuned dials — billions of numbers — get saved. That saved bundle is called a <strong>model</strong>. It is not a robot, not a machine you could touch. <strong>It is a computer file</strong>, like a photo or a video is a file, just much bigger — one famous model is a file of about 800 gigabytes, the contents of several full phones.</p>
+  <p>Two strange and important things about this file:</p>
+  <p><strong>Nobody wrote it, and nobody can read it.</strong> The numbers were found by training, not typed by a person. Even the engineers who built the system cannot open the file and point to where "the capital of France" is stored — the knowledge is smeared across all the dials at once, the way your feel for perfect roti dough is smeared across thirty years of hands, not written in any notebook.</p>
+  <p><strong>It can be copied.</strong> Your thirty years of kitchen instinct cannot be handed to anyone — your daughter-in-law has to learn it the slow way. A model is that same kind of practiced instinct, except it can be photocopied to a million phones overnight. This slightly unfair superpower — <em>experience that can be photocopied</em> — is why the whole world is racing to build these files. And the same robot arm, the same chat app, is clumsy or brilliant depending on <em>which model file is loaded into it</em> — like the same phone being a different tool depending on the app.</p>
+
+  <h2>🎬 Watch (3 minutes)</h2>
+  <div class="video" data-vid="KHbwOetbmbs" data-vt="How AI Works: What is Machine Learning? (Code.org)">
+    <button class="vthumb" aria-label="Play video"><img loading="lazy" src="https://i.ytimg.com/vi/KHbwOetbmbs/hqdefault.jpg" alt=""><span class="play"><span><svg width="26" height="26" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg></span></span></button>
+    <div class="vmeta"><div class="vtitle">How machines learn from examples — in 3 gentle minutes</div><div class="vwatch">👀 Watch for: computers being <em>shown</em> examples instead of given instructions. This is the whole lesson, drawn in pictures.</div><a class="vlink" href="https://www.youtube.com/watch?v=KHbwOetbmbs" target="_blank" rel="noopener">Open in YouTube ↗</a></div>
+  </div>
+  <p style="font-size:.95rem;color:var(--muted)">Feeling brave? There's a famous, funnier 9-minute one: <a href="https://www.youtube.com/watch?v=R9OHn5ZF4Uo" target="_blank" rel="noopener">How Machines Learn by CGP Grey ↗</a> — he talks fast, so use the ⚙️ gear → speed 0.75.</p>
+
+  <h2>Check yourself</h2>
+  <details class="reveal"><summary>Why could nobody write a recipe for "recognize a dog"?</summary><div class="ans"><p>Because that knowledge lives in experience, not steps. Every rule you write ("four legs," "has fur") has exceptions, and you recognize dogs instantly without knowing how you do it — "we know more than we can tell." So instead of rules, we show the machine thousands of examples, the way a child learns.</p></div></details>
+  <details class="reveal"><summary>What is "training"? And what is a "model"?</summary><div class="ans"><p>Training is the loop: <em>guess → check → nudge billions of tiny dials → repeat</em>, over millions of examples. A model is the file of tuned dials that comes out at the end — practiced instinct, saved as a file that can be copied anywhere.</p></div></details>
+  <details class="reveal"><summary>Your washing machine has washed 5,000 loads. Is it better at washing than on day one?</summary><div class="ans"><p>Not even slightly — and now you know why. It follows a recipe; it never checks results and never adjusts. No examples, no corrections, no learning. That is the difference between an <em>automatic</em> machine and a <em>learning</em> machine.</p></div></details>
+
+  <div class="newwords"><span class="lab">📚 New words you now own</span>
+    <span class="wordchip"><b>program</b> a recipe card written by a person, followed exactly</span>
+    <span class="wordchip"><b>machine learning</b> the machine works out its own recipe from many examples</span>
+    <span class="wordchip"><b>training</b> guess → check → nudge the dials → repeat, billions of times</span>
+    <span class="wordchip"><b>model</b> the file of tuned dials — photocopyable experience</span>
+    <span class="wordchip"><b>data</b> the examples used for teaching. The more and the better, the smarter the student</span>
+  </div>
+
+  <div class="tellkaran"><span class="lab">📞 Tell Karan tonight</span>
+  <p>Say this to him: <em>"Your machines don't follow recipes — they learn like a daughter-in-law learns my dal: watch, try, get corrected, a thousand times."</em> Watch his face.</p></div>
+
+  <button class="donebtn" data-done="lesson-1">Mark Lesson 1 finished ✓</button>
+  <div class="lessonfoot">
+    <button class="navbtn" data-goto="home">← All lessons</button>
+    <button class="navbtn primary" data-goto="lesson-2">Lesson 2 →</button>
+  </div>
+</section>
+
+<!-- ======================= LESSON 2 ======================= -->
+<section class="screen" id="lesson-2">
+  <span class="eyebrow">Part 1 · Lesson 2</span>
+  <h1>ChatGPT — the sentence-finishing machine</h1>
+  <p class="standfirst">The famous talking computer, explained with something that's been on your phone all along.</p>
+
+  <h2>1. You already use a tiny ChatGPT every day</h2>
+  <p>Open WhatsApp and start typing. Above the keyboard, three little word suggestions appear. Type <em>"Happy"</em> and your phone offers <em>"birthday"</em>. It learned this from seeing what people (including you) usually type next. It is playing a guessing game: <strong>given the words so far, what word probably comes next?</strong></p>
+  <p>Hold that thought, because here is the secret of the most famous machine in the world: <strong>ChatGPT plays exactly the same game.</strong> That's the whole trick. Given everything written so far in the conversation, it predicts one likely next word. Writes it. Then predicts the next. And the next — one word at a time, hundreds of times — until an answer appears. It is not searching the internet for an answer. It is not copying from a stored book. It is <em>finishing the sentence</em>, the way you finish a proverb everyone knows.</p>
+
+  <div class="widget">
+    <span class="lab">🎮 Play the game ChatGPT plays</span>
+    <p style="margin-top:0">Build a sentence by tapping the word you think comes next — just like your keyboard strip.</p>
+    <div class="sentbox" id="sentsofar"></div>
+    <div id="sentchips" style="margin-top:10px"></div>
+    <div class="rulereply" id="sentnote"></div>
+  </div>
+
+  <p>The difference between your keyboard and ChatGPT is not the game — it's the <strong>size of the player</strong>. Your keyboard's little guesser looks at your last word or two. ChatGPT's guesser can consider about <strong>300 pages</strong> of conversation at once, and it runs on hundreds of billions of those tuning dials from Lesson 1, in a giant computer building. Same idea — bicycle versus jumbo jet.</p>
+
+  <h2>2. What did it read to get this good?</h2>
+  <p>Remember the rule from Lesson 1: the student is only as good as its examples. So — how many examples of human writing did these machines study? Sit down for this.</p>
+  <div class="numrow">
+    <div class="numcell"><div class="numbig">~5 billion</div><div class="numcap">words in ALL of English Wikipedia — about 38 years of non-stop reading. Our measuring cup.</div></div>
+    <div class="numcell"><div class="numbig">40 Wikipedias</div><div class="numcap">what GPT-3 read in 2020 — around 1,600 years of reading, day and night</div></div>
+    <div class="numcell"><div class="numbig">2,000+ Wikipedias</div><div class="numcap">what the newest machines read — tens of thousands of years of reading, longer than writing has existed</div></div>
+  </div>
+  <p>Where did that mountain of text come from? <strong>The internet — essentially for free.</strong> Humanity spent thirty years writing emails, articles, recipes, arguments, books, reviews... and it was all just lying there. Nobody had to be paid to create the study material. <em>Remember this fact. In Lesson 3 it becomes the key to Karan's entire industry.</em></p>
+  <p style="font-size:.95rem;color:var(--muted)">(One small word you may hear Karan say: <b>"tokens."</b> Machines count text in tokens — word-pieces. Four tokens is roughly three words. That's all it means.)</p>
+  <p>And here's a comforting thought. A child becomes fluent in her language after hearing fewer than <strong>100 million words</strong>. The machine needed <em>trillions</em> — tens of thousands of times more. So no, the machine is not a genius child. It is a <strong>spectacularly slow student with infinite stamina</strong>, making up in volume what it lacks in your grandchildren's spark.</p>
+
+  <h2>3. Why it makes mistakes — confidently</h2>
+  <div class="story"><span class="lab">📖 A true story — the lawyer who didn't check</span>
+    <p>A few years ago, a lawyer in New York asked ChatGPT to find court cases for a lawsuit against an airline. It gave him six perfect-looking cases — names, judges, quotes. He submitted them to the court.</p>
+    <p><strong>All six were invented.</strong> ChatGPT hadn't "lied" — it had done its one and only job: compose text that <em>looks like</em> what lawyers write. The judge fined him $5,000, and the story went around the world.</p>
+  </div>
+  <p>Why does a machine this capable invent things? Because fluency and truth come out of the same guessing machinery. A wrong answer arrives in <em>exactly</em> the same polished, confident tone as a right one — so you cannot judge it by tone, the way you'd judge a smooth-talking wedding guest. The people who build these machines explain it with a picture any mother of students will recognize: the machine is like an exam-taker who knows that <strong>a blank answer scores zero but a confident guess might score</strong> — so it learned to never leave a question blank, and never say "I don't know."</p>
+  <p>When testers quizzed chatbots on tricky law questions, the chatbots got <strong>more than half wrong</strong> — but versions that could first look things up in real law books made far fewer mistakes. Notice what fixed it: <em>better material to lean on.</em> Always the data.</p>
+  <p>So the family rule is: <strong>use it freely, check what matters.</strong> It is a brilliant, tireless, occasionally-wrong assistant — wonderful for drafts, explanations, translations, ideas; and anything important you verify, like you'd taste a new cook's dish before serving it to guests.</p>
+
+  <h2>4. One more secret: humans taught it manners</h2>
+  <p>After all that reading, the machine could talk — but not <em>behave</em>. So companies paid thousands of people to chat with it and grade its answers: thumbs up for helpful and polite, thumbs down for rude or wrong. Dial-nudging, again — but with paid human teachers instead of free internet text. Hold onto this too: <strong>behind every "smart" machine stands an army of paid human teachers.</strong> In the robot world, some of those teachers work for your son.</p>
+  <p>One last twist: the world is actually <strong>running out of fresh human writing</strong> to feed these machines — researchers estimate the useful public text of the internet will be essentially all used up within a few years. Good study material has become one of the most precious things in technology. Keep that thought warm; it comes back with force in Lesson 6.</p>
+
+  <h2>🎬 Watch (the first 3–4 minutes are enough)</h2>
+  <div class="video" data-vid="LPZh9BOjkQs" data-vt="How ChatGPT guesses the next word">
+    <button class="vthumb" aria-label="Play video"><img loading="lazy" src="https://i.ytimg.com/vi/LPZh9BOjkQs/hqdefault.jpg" alt=""><span class="play"><span><svg width="26" height="26" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg></span></span></button>
+    <div class="vmeta"><div class="vtitle">ChatGPT shown as a next-word guessing machine — beautiful animation</div><div class="vwatch">👀 Watch for: the opening minutes, where it predicts the next word with probabilities and rolls the dice, again and again. That's your Lesson 2 in moving pictures. (It gets mathematical later — feel free to stop.)</div><a class="vlink" href="https://www.youtube.com/watch?v=LPZh9BOjkQs" target="_blank" rel="noopener">Open in YouTube ↗</a></div>
+  </div>
+
+  <div class="tryit"><span class="lab">✋ Try it yourself — catch the machine bluffing</span>
+    <p style="margin-top:0">In WhatsApp, tap the blue-purple circle (Meta AI — it understands Hindi too), or open <a href="https://chatgpt.com" target="_blank" rel="noopener">chatgpt.com ↗</a>.</p>
+    <p><b>1.</b> Ask it something you know better than anyone alive: <em>"How do I make [your signature dish] exactly the way it's made in [your family/region]?"</em></p>
+    <p><b>2.</b> Read the answer like a mother-in-law inspecting a new cook. It will be fluent, confident — and somewhere it will get a detail wrong that you would never get wrong.</p>
+    <p><b>3.</b> When you find it, congratulations: you have just fact-checked the most famous machine on Earth. Over <b>800 million people</b> use it every week; very few of them remember to do what you just did.</p>
+  </div>
+
+  <h2>Check yourself</h2>
+  <details class="reveal"><summary>What is ChatGPT's one trick?</summary><div class="ans"><p>Predict a likely next word, write it, repeat — the same game as your keyboard's suggestion strip, played by a vastly bigger player that read the equivalent of thousands of Wikipedias.</p></div></details>
+  <details class="reveal"><summary>Why does it make confident mistakes?</summary><div class="ans"><p>Because it composes plausible text rather than looking up facts, and it was trained like an exam student who never leaves a blank. Right and wrong answers come out in the same confident tone — so you check anything that matters.</p></div></details>
+  <details class="reveal"><summary>Why did the talking machines arrive before the robot housemaids?</summary><div class="ans"><p>Because the talking machine's study material — the internet's text — already existed, free, in impossible quantities. (And what study material would a robot maid need? That's Lesson 3. You're going to like it.)</p></div></details>
+
+  <div class="newwords"><span class="lab">📚 New words you now own</span>
+    <span class="wordchip"><b>ChatGPT</b> a sentence-finishing machine — your keyboard strip, grown enormous</span>
+    <span class="wordchip"><b>token</b> how machines count text: word-pieces, ~4 tokens ≈ 3 words</span>
+    <span class="wordchip"><b>confident mistake</b> a wrong answer in a perfect tone (the fancy word is "hallucination")</span>
+    <span class="wordchip"><b>the golden rule</b> more good examples → smarter machine. Everything runs on data</span>
+  </div>
+
+  <div class="tellkaran"><span class="lab">📞 Tell Karan tonight</span>
+  <p><em>"ChatGPT is just the WhatsApp suggestion strip after reading two thousand Wikipedias — and it still can't make my dal correctly."</em> He will frame this sentence.</p></div>
+
+  <button class="donebtn" data-done="lesson-2">Mark Lesson 2 finished ✓</button>
+  <div class="lessonfoot">
+    <button class="navbtn" data-goto="lesson-1">← Lesson 1</button>
+    <button class="navbtn primary" data-goto="lesson-3">Lesson 3 →</button>
+  </div>
+</section>
+<!-- ======================= LESSON 3 ======================= -->
+<section class="screen" id="lesson-3">
+  <span class="eyebrow">Part 2 · Lesson 3</span>
+  <h1>Why robots are hard — and the empty library</h1>
+  <p class="standfirst">Computers beat chess champions thirty years ago. So why is there still no robot folding your laundry? The answer is the key to everything Karan does.</p>
+
+  <h2>1. What a robot actually is</h2>
+  <p>A robot is three things joined together:</p>
+  <p><strong>A body</strong> — motors, metal arms, wheels, hands.<br>
+  <strong>Senses</strong> — cameras for eyes, sometimes microphones, very rarely any sense of touch.<br>
+  <strong>A brain</strong> — the part that decides what to move next.</p>
+  <p>Here is the surprise: <strong>the body was solved long ago.</strong> Factory robots have existed since the 1960s. Today about <strong>4.7 million</strong> of them work in the world's factories. Strong, tireless, precise bodies are old news. The battle of our time is over the <em>brain</em> — and, as you'll see, over the brain's <em>study material</em>.</p>
+
+  <h2>2. The robots you've already seen are not what you think</h2>
+  <p>You've seen factory robots on TV — rows of orange arms welding cars in showers of sparks. They look intelligent. They are not. <strong>They are precise.</strong> A welding robot repeats one recorded motion, accurate to a hair's width, a million times — but most of them are completely blind. No cameras, no touch. If the car arrived a few centimetres out of place, the robot would confidently weld the empty air. It's a music box: it plays its one tune perfectly, and if you nudge the piano aside, it keeps "playing" in the air.</p>
+  <p>That's why factory robots stand behind safety cages — not because they're dangerous minds, but because they're <strong>blind muscles</strong>. A person could stand right next to one and it would never know.</p>
+  <p>And the "robots" in your own home? The washing machine follows its fixed recipe and never checks the clothes. The robot vacuum cleans the way a blindfolded person would sweep: roll forward, bump the sofa, turn, roll again. Millions have been sold — and after twenty years, not one of them has ever picked up a single sock. It has no hands, and nothing it does today makes it better tomorrow. <strong>None of these machines learn.</strong></p>
+
+  <h2>3. The upside-down rule</h2>
+  <p>Now, the strangest and most important fact in this whole school:</p>
+  <div class="analogy"><span class="lab">🙃 The upside-down rule</span>
+  <p>What is <em>hard</em> for people is <em>easy</em> for computers. What is so <em>easy</em> for people that we don't even call it a skill — is nearly <em>impossible</em> for robots.</p></div>
+  <p>A computer beat the world chess champion back in 1997. But here's the part of that story nobody remembers: <strong>the computer couldn't move its own pieces.</strong> An engineer sat beside the board, moving each pawn for it. The machine out-thought the greatest chess mind alive — and couldn't do what a two-year-old does with her fingers.</p>
+  <p>Think of a brilliant professor who calculates the whole family's taxes in his head in one minute — but cannot crack an egg, button his shirt, or pour tea without spilling. Computers are that professor. Why? Because chess and arithmetic are recent human party tricks, but hands, eyes and balance were polished over millions of years. The things that feel effortless — picking up a coin, folding a shirt — are actually our <em>deepest, oldest, most refined</em> skills. We just never noticed, because everyone has them.</p>
+  <div class="numrow">
+    <div class="numcell"><div class="numbig">17,000</div><div class="numcap">tiny touch sensors in one human hand — feeling "slipping! too soft! too hot!" every instant</div></div>
+    <div class="numcell"><div class="numbig">0</div><div class="numcap">touch sensors in most robot grippers — a metal pincher that only opens and closes</div></div>
+    <div class="numcell"><div class="numbig">~25 min</div><div class="numcap">time the world's best robot once needed to fold ONE towel — and it made world news as a triumph</div></div>
+  </div>
+  <p>Picking up a grape with a robot gripper is like picking it up with barbecue tongs, wearing thick oven mitts, with your eyes closed. And soft, floppy things are the boss level: a brick behaves the same every time you grab it, but a shirt is a different shape every second you touch it — like shaking hands with water. That's why a towel once defeated a robot that cost as much as a house.</p>
+  <p>Even the world's biggest online shop, with over a <strong>million</strong> robots in its warehouses, had them mostly carrying shelves around for a decade — humans kept doing the grabbing, because grabbing a toothpaste tube, a glass jar, a floppy bag was too hard for machines. Their first robot arm that can actually <em>feel</em> what it touches arrived only last year.</p>
+
+  <h2>🎬 Watch: the world's best robots, honestly</h2>
+  <div class="video" data-vid="g0TaYhjpOfo" data-vt="Robots falling down at a big robot competition">
+    <button class="vthumb" aria-label="Play video"><img loading="lazy" src="https://i.ytimg.com/vi/g0TaYhjpOfo/hqdefault.jpg" alt=""><span class="play"><span><svg width="26" height="26" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg></span></span></button>
+    <div class="vmeta"><div class="vtitle">The famous "robots falling over" video 😄</div><div class="vwatch">👀 This was a serious competition in America — the best robot teams in the world, robots worth millions. The tasks: open a door, turn a valve, climb stairs. Watch them topple like drunk uncles at a wedding — and notice every task is something you do daily without thinking.</div><a class="vlink" href="https://www.youtube.com/watch?v=g0TaYhjpOfo" target="_blank" rel="noopener">Open in YouTube ↗</a></div>
+  </div>
+  <div class="video" data-vid="NOTyoI0e1y4" data-vt="Car factory robots">
+    <button class="vthumb" aria-label="Play video"><img loading="lazy" src="https://i.ytimg.com/vi/NOTyoI0e1y4/hqdefault.jpg" alt=""><span class="play"><span><svg width="26" height="26" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg></span></span></button>
+    <div class="vmeta"><div class="vtitle">Car factory robots — beautiful, blind choreography</div><div class="vwatch">👀 Watch for three things: the robots are behind fences… every car arrives in exactly the same position… and each arm repeats one identical motion. Precision, not intelligence. A factory is a world engineered to never surprise the robot. Your kitchen is the opposite: nothing is ever in yesterday's place.</div><a class="vlink" href="https://www.youtube.com/watch?v=NOTyoI0e1y4" target="_blank" rel="noopener">Open in YouTube ↗</a></div>
+  </div>
+
+  <h2>4. The empty library — the sentence this whole school stands on</h2>
+  <p>Now bring back the golden rule from Lessons 1 and 2: <em>machines get smart from examples.</em> ChatGPT got smart because its study material — all the text humanity ever typed — was <strong>already lying on the internet, free.</strong> It walked into a full library.</p>
+  <p>So what happens when a robot goes looking for <em>its</em> study material? It needs examples of a very particular kind: <em>exactly how do fingers move when folding a shirt? How hard do you grip a cup? At what angle does the wrist turn when pouring?</em></p>
+  <p style="font-size:1.15rem"><strong>And the shelf is empty.</strong></p>
+  <p>Nobody, in all of human history, ever wrote that down. There is no WhatsApp of hand movements. No YouTube of grip strength. Billions of people fold laundry every day — and not one of those movements was ever recorded in a form a robot can learn from. The talking machines inherited a full library for free; <strong>the robots' library has to be written now, by hand, page by page — and someone has to pay the writers.</strong></p>
+  <div class="analogy"><span class="lab">🔑 The hinge of everything</span>
+  <p>ChatGPT arrived overnight because its textbook already existed. Robot helpers are arriving slowly because their textbook is <em>being written right now</em> — one recorded demonstration at a time. Writing that missing library is the industry your son works in. Everything in the next lessons — the remote driving, the recorded lessons, the special tools — is about writing it faster.</p></div>
+  <p>How big is the gap? The talking machines studied the equivalent of roughly <strong>a hundred thousand years</strong> of human reading. All the robot "lessons" collected in the entire world so far add up to about <strong>one year</strong> of experience. That gap — a hundred thousand to one — is the single biggest business opportunity in technology today. Hold that number; in Lesson 6 you'll meet the people filling it.</p>
+
+  <h2>Check yourself</h2>
+  <details class="reveal"><summary>Factory robots weld cars perfectly. So why can't they make a cup of tea?</summary><div class="ans"><p>Because they don't understand anything — they replay one recorded motion in a world engineered to never change. Tea lives in your kitchen, where nothing is ever in the same place twice. Precision is not intelligence.</p></div></details>
+  <details class="reveal"><summary>What's the upside-down rule?</summary><div class="ans"><p>Hard-for-humans (chess, taxes) is easy for computers; easy-for-humans (picking up a grape, folding a towel) is the hardest thing in the world for robots — because hands and eyes are our oldest, most polished skills.</p></div></details>
+  <details class="reveal"><summary>Why did talking machines arrive before robot helpers?</summary><div class="ans"><p>The talking machines found their study material — the internet's text — already written, free. The robots' study material (recorded hand movements) never existed. It has to be created from scratch, by people, one demonstration at a time. That's the empty library.</p></div></details>
+
+  <div class="newwords"><span class="lab">📚 New words you now own</span>
+    <span class="wordchip"><b>body · senses · brain</b> the three parts of every robot — the brain is the battleground</span>
+    <span class="wordchip"><b>the upside-down rule</b> easy for you = hardest for robots</span>
+    <span class="wordchip"><b>the empty library</b> there is no internet of hand movements — robot study material must be created</span>
+  </div>
+
+  <div class="tellkaran"><span class="lab">📞 Tell Karan tonight</span>
+  <p><em>"I understand your industry now: ChatGPT walked into a full library, and your robots found an empty one — so you're writing the missing books."</em> This sentence is the heart of everything he does.</p></div>
+
+  <button class="donebtn" data-done="lesson-3">Mark Lesson 3 finished ✓</button>
+  <div class="lessonfoot">
+    <button class="navbtn" data-goto="lesson-2">← Lesson 2</button>
+    <button class="navbtn primary" data-goto="lesson-4">Lesson 4 →</button>
+  </div>
+</section>
+
+<!-- ======================= LESSON 4 ======================= -->
+<section class="screen" id="lesson-4">
+  <span class="eyebrow">Part 2 · Lesson 4</span>
+  <h1>Driving a robot from far away</h1>
+  <p class="standfirst">The word Karan says most: <b>teleoperation</b>. It sounds technical. It's actually a video call — where your hands come out the other side.</p>
+
+  <h2>1. A video call with hands</h2>
+  <p>On a WhatsApp video call you can see Karan's kitchen from across the world — but you can't stir his pot. Now imagine a robot standing in that kitchen. On your screen you see through <em>its</em> camera eyes. You move your hands — and <strong>its hands copy you, the same instant.</strong> You could stir the pot from another city. That is teleoperation: seeing through a robot's eyes and lending it your hands, over the internet.</p>
+  <p>How does the robot know what your hands are doing? Two common ways:</p>
+  <p><strong>Twin arms.</strong> The operator holds a small, light "leader" arm. The robot's arm copies every motion exactly — like teaching a child to write by holding their hand over the pencil, except the child's hand is in another building.</p>
+  <p><strong>Wearing the robot.</strong> The operator puts on a headset showing the robot's camera view, and holds motion controllers. It's the puppeteer moved <em>inside</em> the puppet — no strings, just the internet.</p>
+
+  <h2>2. This is older and more trusted than you think</h2>
+  <p>Teleoperation wasn't invented for fun. It was invented in the 1940s so scientists could handle radioactive material: behind thick protective glass, a person moved two handles, and metal tongs on the dangerous side copied every motion. Human skill, sent through a wall.</p>
+  <p>And today? You may have heard of "robot surgery." Here is what those words really mean: the surgeon sits at a console a few steps from the patient, looking into a 3D viewer, moving finger controls — and robot arms turn those movements into tiny, perfectly steady movements inside the patient. <strong>The robot never decides anything. Every single motion is the surgeon's.</strong> Millions of operations are done this way every year — families trust a teleoperated robot with life itself, usually without knowing the word for it.</p>
+  <p>Even better: the robot makes the surgeon's hands <em>superhuman</em>. Big comfortable hand movements become tiny stitches — and the natural little tremble every human hand has is electronically smoothed away, like pouring tea at your own table instead of on a moving train.</p>
+  <div class="story"><span class="lab">📖 A true story — the operation across the ocean</span>
+    <p>One day in 2001, a surgeon sat down at a console in New York. His patient — a 68-year-old woman — lay on an operating table in France, an ocean away. Through a special high-speed line, he removed her gallbladder in 45 minutes, his hand movements crossing the Atlantic and coming back as video. She recovered perfectly.</p>
+    <p>The total delay — hand moves, robot moves, picture returns — was about <strong>one-sixth of a second. About one blink of an eye.</strong> Remember that number; it's about to matter.</p>
+  </div>
+
+  <h2>3. The enemy: delay</h2>
+  <p>Here is the whole engineering battle of Karan's company, in one word: <strong>delay</strong> (engineers say "latency"). It's the time between your movement and seeing the robot respond.</p>
+  <p>You have already felt it. That awkward moment on a video call when you both start talking, stop, and say "no no, you go first" — that's delay. Annoying in conversation. <strong>Deadly for hands.</strong> Imagine heating milk while only watching the pot through a TV broadcast that runs one second behind: by the time your screen shows the milk rising, it has already boiled over on the real stove. Your hands are always acting on old news.</p>
+
+  <div class="widget">
+    <span class="lab">🎮 Feel the delay yourself</span>
+    <p style="margin-top:0">Drag your finger (or mouse) in the box. The <b style="color:var(--amber)">orange dot</b> is the robot's hand trying to follow you. Try each button — and imagine threading a needle.</p>
+    <div class="lagbtns">
+      <button class="chip picked" data-lag="30" id="lagdefault">Karan's software (~0.03 s)</button>
+      <button class="chip" data-lag="200">Ordinary video call (~0.2 s)</button>
+      <button class="chip" data-lag="1500">Satellite link (~1.5 s)</button>
+    </div>
+    <div class="lagpad" id="lagpad"><div class="lagdot hand" id="handdot"></div><div class="lagdot" id="robotdot"></div></div>
+    <div class="lagnote" id="lagnote">With Karan's software, the dot feels glued to your finger — the robot moves before a blink finishes.</div>
+  </div>
+
+  <p>The rough rule engineers discovered: up to about <strong>one-fifth of a second</strong> of delay, remote hands feel almost natural. Beyond that, every movement becomes slow, careful, tiring — and delicate work becomes impossible. That's why each level of delay decides <em>what kind</em> of remote work can be done:</p>
+  <div class="numrow">
+    <div class="numcell"><div class="numbig">0.03 s</div><div class="numcap"><b>Aktoria's software, across a whole country.</b> Faster than a blink — hands feel like your own</div></div>
+    <div class="numcell"><div class="numbig">0.15 s</div><div class="numcap">the famous ocean-crossing surgery — delicate work, done carefully</div></div>
+    <div class="numcell"><div class="numbig">1.5 s</div><div class="numcap">satellite delay for military drones — fine for flying in open sky, hopeless for threading a needle</div></div>
+    <div class="numcell"><div class="numbig">13 min</div><div class="numcap">one-way delay to Mars — live driving impossible; each day's route is planned in advance, like sending a servant to the bazaar with a written list</div></div>
+  </div>
+  <p>Now you can read the proudest line on your son's website like an insider. It says their delay is <strong>under 8 thousandths of a second nearby, and about 30–40 across the entire country.</strong> A blink takes 100–150. In plain words: <em>an operator in one city can lend her hands to a robot in another city, and the robot's hands feel glued to hers.</em> Distance has stopped being the problem. That is genuinely hard to build — and it's the foundation everything else in the company stands on.</p>
+
+  <h2>🎬 Watch teleoperation with your own eyes</h2>
+  <div class="video" data-vid="mnLVbwxSdNM" data-vt="Two students drive a robot through cooking a full dinner">
+    <button class="vthumb" aria-label="Play video"><img loading="lazy" src="https://i.ytimg.com/vi/mnLVbwxSdNM/hqdefault.jpg" alt=""><span class="play"><span><svg width="26" height="26" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg></span></span></button>
+    <div class="vmeta"><div class="vtitle">A robot cooks a full three-course dinner — driven by students</div><div class="vwatch">👀 Watch for the person standing BEHIND the robot, holding two small twin arms. The robot copies every motion. This is exactly the "teaching a child by holding their hand" picture — and it's the kind of driving Karan's operators do all day.</div><a class="vlink" href="https://www.youtube.com/watch?v=mnLVbwxSdNM" target="_blank" rel="noopener">Open in YouTube ↗</a></div>
+  </div>
+  <div class="video" data-vid="0XdC1HUp-rU" data-vt="Surgery robot stitches a grape">
+    <button class="vthumb" aria-label="Play video"><img loading="lazy" src="https://i.ytimg.com/vi/0XdC1HUp-rU/hqdefault.jpg" alt=""><span class="play"><span><svg width="26" height="26" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg></span></span></button>
+    <div class="vmeta"><div class="vtitle">A surgery robot stitches the skin of a grape</div><div class="vwatch">👀 Every micro-stitch you see is a human surgeon's hand movement, shrunk down and steadied. This famous clip is teleoperation at its most beautiful.</div><a class="vlink" href="https://www.youtube.com/watch?v=0XdC1HUp-rU" target="_blank" rel="noopener">Open in YouTube ↗</a></div>
+  </div>
+
+  <h2>4. Why drive robots at all? Two reasons — and the second one is gold</h2>
+  <p><strong>Reason one: work gets done today.</strong> A robot that can't manage alone can still be useful right now, with a human's skill flowing into it from far away.</p>
+  <p><strong>Reason two — and this is the beautiful part:</strong> remember the empty library from Lesson 3? Every minute of teleoperation is <em>recorded</em> — what the cameras saw, plus every movement of every joint. Each recording is one page written into the robots' missing library. <strong>The same hour of work is sold twice:</strong> the customer gets the job done, and the recording becomes a lesson that teaches robots to do it alone next time.</p>
+  <p>A hired cook who makes tonight's dinner <em>and</em> leaves behind a perfect video recipe after every meal — that's teleoperation. Lessons 5 and 6 are these two reasons, one each. You now hold the master key to the whole business.</p>
+
+  <h2>Check yourself</h2>
+  <details class="reveal"><summary>What is teleoperation, in one sentence you'd say to a neighbour?</summary><div class="ans"><p>"A person far away sees through a robot's camera eyes and moves their hands — and the robot copies them instantly. A video call, where your hands come out the other side."</p></div></details>
+  <details class="reveal"><summary>Why does delay matter so much?</summary><div class="ans"><p>Because with delay, your hands act on old news — like watching your milk pot through a broadcast running behind. Past about a fifth of a second, delicate hand work falls apart. Karan's software keeps the delay far below a blink, even across a country — that's the product.</p></div></details>
+  <details class="reveal"><summary>Why is every teleoperation session recorded?</summary><div class="ans"><p>Because each recording is a lesson for the robots' empty library. The hour is sold twice: work done today, teaching material for tomorrow.</p></div></details>
+
+  <div class="newwords"><span class="lab">📚 New words you now own</span>
+    <span class="wordchip"><b>teleoperation</b> driving a robot from far away — a video call with hands</span>
+    <span class="wordchip"><b>operator</b> the trained person doing the driving</span>
+    <span class="wordchip"><b>latency</b> the delay between your move and the robot's move — the enemy</span>
+    <span class="wordchip"><b>sold twice</b> every driven hour = work done + a recorded lesson</span>
+  </div>
+
+  <div class="tellkaran"><span class="lab">📞 Tell Karan tonight</span>
+  <p><em>"I played with the delay game. Now I understand why you obsess over milliseconds — past a fifth of a second, remote hands go clumsy."</em> Then ask him his latest latency number. He will talk for an hour.</p></div>
+
+  <button class="donebtn" data-done="lesson-4">Mark Lesson 4 finished ✓</button>
+  <div class="lessonfoot">
+    <button class="navbtn" data-goto="lesson-3">← Lesson 3</button>
+    <button class="navbtn primary" data-goto="lesson-5">Lesson 5 →</button>
+  </div>
+</section>
+<!-- ======================= LESSON 5 ======================= -->
+<section class="screen" id="lesson-5">
+  <span class="eyebrow">Part 3 · Lesson 5</span>
+  <h1>The humans behind every robot</h1>
+  <p class="standfirst">The robot industry's open secret — and why it's not a scandal, but a plan. This lesson is the first half of what Aktoria sells.</p>
+
+  <h2>1. The open secret</h2>
+  <p>Karan's company introduces itself with one cheeky sentence: <strong>"Every 'autonomous' robot you've seen this year had a human behind it."</strong></p>
+  <p>They mean it literally. Those jaw-dropping robot videos online — a humanoid loading a dishwasher, pouring a drink, tidying a room? As a rule of thumb: <em>if a robot did something delicate and surprising, a person was probably driving it</em> — from the next room or the next continent, exactly the way you learned in Lesson 4.</p>
+  <div class="story"><span class="lab">📖 A true story — the $20,000 house robot</span>
+    <p>Last year, a company started selling the first real humanoid robot for homes — a soft, friendly machine in a knitted suit, about the height of a person, for $20,000. A famous tech journalist invited one into a house to test it.</p>
+    <p>Fetching a bottle of water took over a minute. Loading a few dishes took five. And then came the discovery that made headlines: <strong>every single thing the robot did was being driven, live, by a company employee wearing a headset in another building.</strong> The internet had a good laugh — "$20,000 to let a stranger wander my house!"</p>
+    <p>But the company never denied it. That <em>is</em> the plan, they said, openly: the human drivers are the robot's <em>teachers</em>. Owners schedule a session, a trained operator drives the robot through the chore — and every session is recorded and used to teach the robot to do it alone next time. Early buyers aren't buying a finished servant; they're hiring an apprentice, plus the tutor who trains it. (And yes — the owner approves each session, can set no-go rooms, and a light shows when a person is connected.)</p>
+  </div>
+  <p>Once you see this pattern, you see it everywhere. The driverless taxis in American cities? They drive themselves — but a team of about seventy trained helpers sits in control rooms around the clock, and when a car meets something confusing (a half-closed road, a strange construction zone), it asks them for guidance <em>and gets an answer within seconds</em>. Little delivery robots rolling across university campuses? For years, watched over by people in another country. <strong>Humans-in-the-loop isn't a failure of the robot age. It IS the robot age — the stage of it we're living in now.</strong></p>
+
+  <h2>2. Why robots need a human safety net</h2>
+  <p>Here's the business logic, and it's very simple. Suppose a robot does a task correctly nine times out of ten. Sounds good — but no shop, hospital or warehouse can accept a worker who fails every tenth time and then just… stands there, stuck. That one-in-ten is the wall between "impressive demo" and "actually useful."</p>
+  <p>The fix: when the robot gets stuck, <strong>a trained human takes over remotely, sorts it out in a minute, and hands control back.</strong> Suddenly the robot's work is dependable today — years before the robot itself is perfect. The human is the safety net that lets robots leave the laboratory and start working in the real world <em>now</em>.</p>
+  <p>And remember the gold from Lesson 4: every one of those rescues is recorded. The robot got saved — and the library got one more page about exactly the situations robots find hardest. <strong>The safety net is also the school.</strong></p>
+
+  <h2>3. A call center for hands</h2>
+  <p>Now — who provides these human safety nets? A robot company could hire and train its own operators… in every time zone… covering nights, weekends, sick days… That's a whole second company to run, and it has nothing to do with building robots.</p>
+  <p>You already know how the world solves this kind of problem. When you call your bank at 3 a.m., a trained person answers — because banks don't each build their own overnight phone team; they use shared, professional call centers.</p>
+  <div class="analogy"><span class="lab">☎️ The picture to keep</span>
+  <p>Aktoria runs a <strong>call center for hands</strong>. Rows of trained people on shift, day and night — but instead of answering phones, each seat is driving a robot somewhere in the world. A robot gets stuck at 3 a.m. in an American warehouse? It "rings" the operations floor, a trained operator takes its hands for a few minutes, the job continues. The customer's robots get round-the-clock human skill — without the customer hiring a single operator.</p></div>
+  <p>The clever part is the clock. Aktoria's operators work from <strong>India, Mexico and the USA</strong> — so when America sleeps, India is wide awake. Three countries passing the shift around the globe like a family shop that never closes. And these are trained, in-house staff — Aktoria's own people, drilled on the customers' robots and tasks — because (as Lesson 6 will show you) <em>who</em> does the driving turns out to matter enormously.</p>
+  <p>One more thing worth saying plainly: <strong>"robot operator" is a brand-new profession</strong>, being created right now, the way "call center agent" was created a generation ago — skilled work you can do from anywhere, teaching machines with your hands. Your son isn't just running a company; he's helping invent a job.</p>
+
+  <h2>🎬 Watch the open secret with your own eyes</h2>
+  <div class="video" data-vid="f3c4mQty_so" data-vt="Journalist tests the $20,000 home robot">
+    <button class="vthumb" aria-label="Play video"><img loading="lazy" src="https://i.ytimg.com/vi/f3c4mQty_so/hqdefault.jpg" alt=""><span class="play"><span><svg width="26" height="26" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg></span></span></button>
+    <div class="vmeta"><div class="vtitle">The famous test of the $20,000 home robot</div><div class="vwatch">👀 Watch for the moment the camera reveals the employee in a headset driving the robot from far away. You'll recognize everything: teleoperation, the recorded lessons, the apprentice phase. You now understand this video better than most of the people who watched it.</div><a class="vlink" href="https://www.youtube.com/watch?v=f3c4mQty_so" target="_blank" rel="noopener">Open in YouTube ↗</a></div>
+  </div>
+  <div class="video" data-vid="uVcBa6NXAbk" data-vt="The home robot, at its best">
+    <button class="vthumb" aria-label="Play video"><img loading="lazy" src="https://i.ytimg.com/vi/uVcBa6NXAbk/hqdefault.jpg" alt=""><span class="play"><span><svg width="26" height="26" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg></span></span></button>
+    <div class="vmeta"><div class="vtitle">What home robots are meant to become</div><div class="vwatch">👀 The dream being sold: a gentle helper in a knitted suit, tidying and carrying. Between today's remote-driven apprentice and this dream sits exactly one ingredient: lessons. Millions of them. That's Lesson 6.</div><a class="vlink" href="https://www.youtube.com/watch?v=uVcBa6NXAbk" target="_blank" rel="noopener">Open in YouTube ↗</a></div>
+  </div>
+
+  <h2>Check yourself</h2>
+  <details class="reveal"><summary>A $20,000 home robot turned out to be driven by hidden humans. Scam or plan?</summary><div class="ans"><p>Plan — and an openly stated one. The human drivers are tutors: every driven session is recorded and teaches the robot to do the chore alone next time. Today's robots are apprentices; teleoperation is the apprenticeship.</p></div></details>
+  <details class="reveal"><summary>Why does a robot that works 9 times out of 10 still need Aktoria?</summary><div class="ans"><p>Because businesses can't accept the tenth failure. A remote human catches exactly those moments — making the robot dependable years before it's perfect. And every rescue becomes a recorded lesson about the hardest cases.</p></div></details>
+  <details class="reveal"><summary>Why India, Mexico and the USA?</summary><div class="ans"><p>Time zones: when one country sleeps, another is awake — 24/7 coverage passed around the globe like a family shop that never closes.</p></div></details>
+
+  <div class="newwords"><span class="lab">📚 New words you now own</span>
+    <span class="wordchip"><b>the open secret</b> today's impressive robots usually have a human behind them — on purpose</span>
+    <span class="wordchip"><b>safety net</b> a remote human catches the robot's failures, making it dependable today</span>
+    <span class="wordchip"><b>operations center</b> Aktoria's call center for hands — trained operators, 24/7, three countries</span>
+  </div>
+
+  <div class="tellkaran"><span class="lab">📞 Tell Karan tonight</span>
+  <p><em>"So your operators are the safety net AND the school — every rescue is also a recorded lesson."</em> Then ask him what the strangest thing a robot ever got stuck on was. Operators collect wonderful stories.</p></div>
+
+  <button class="donebtn" data-done="lesson-5">Mark Lesson 5 finished ✓</button>
+  <div class="lessonfoot">
+    <button class="navbtn" data-goto="lesson-4">← Lesson 4</button>
+    <button class="navbtn primary" data-goto="lesson-6">Lesson 6 →</button>
+  </div>
+</section>
+
+<!-- ======================= LESSON 6 ======================= -->
+<section class="screen" id="lesson-6">
+  <span class="eyebrow">Part 3 · Lesson 6</span>
+  <h1>Robot lessons — the treasure everyone is buying</h1>
+  <p class="standfirst">The second half of what Aktoria sells: the recorded lessons themselves. Time to open one up and look inside.</p>
+
+  <h2>1. What one robot lesson actually is</h2>
+  <p>The industry's word for one recorded lesson is an <strong>"episode."</strong> When Karan says "we delivered a batch of episodes," here is what he means.</p>
+  <p>Imagine filming yourself making one roti — but with a helper who <em>also</em> writes down, fifty times every second, the exact position of your shoulder, elbow, wrist and fingers, and how hard you're pinching the dough. The video <strong>plus</strong> that notebook of numbers, for one single roti, start to finish — that bundle is one episode.</p>
+
+  <div class="widget">
+    <span class="lab">🔬 Look inside a live episode</span>
+    <p style="margin-top:0">This is what the robot's memory of ten seconds of work looks like — several cameras at once, plus the numbers, written down 50 times every second:</p>
+    <div class="epgrid">
+      <div class="epcam">🫖<span class="cl">overhead camera</span></div>
+      <div class="epcam">🤖<span class="cl">front camera</span></div>
+      <div class="epcam">✋<span class="cl">left wrist camera</span></div>
+      <div class="epcam">🤚<span class="cl">right wrist camera</span></div>
+    </div>
+    <div class="epnums" id="epnums">elbow 42.1° · wrist 118.3° · grip 0.82 · reach 31.4 cm</div>
+    <div class="epcount" id="epcount">snapshot #0 of this episode</div>
+  </div>
+
+  <p>Notice the wrist cameras — the robot films its own hands close-up, because during delicate work its arms block the main camera's view. A movie shows 24 pictures per second; an episode writes everything down 50 times per second — <em>finer than cinema</em>, because a hand pouring tea moves too much between two coarse snapshots.</p>
+  <p>This also answers a very sensible question: <strong>"Why can't robots just watch cooking videos on YouTube?"</strong> Because an ordinary video shows <em>what happened</em> — but not the angles, distances and grip pressure. The robot needs the notebook, not just the film. That's why special recording tools exist… and why this data can't simply be scraped off the internet. It has to be <em>made</em>.</p>
+
+  <h2>2. How many lessons does a robot need?</h2>
+  <div class="numrow">
+    <div class="numcell"><div class="numbig">~50</div><div class="numcap">demonstrations to teach one chore. A famous student-built robot learned to cook shrimp from about 50 guided lessons</div></div>
+    <div class="numcell"><div class="numbig">10,000 hours</div><div class="numcap">of episodes behind one of today's best general robot brains — and that's barely ONE year of experience</div></div>
+    <div class="numcell"><div class="numbig">1,000,000</div><div class="numcap">episodes when the world's labs once pooled everything they had. The chatbots' library is still ~100,000× bigger</div></div>
+  </div>
+  <p>See the shape of it? A single chore needs about fifty lessons — you wouldn't let someone drive alone after one driving lesson either. A <em>general</em> robot brain needs thousands of hours. And once a good general brain exists, teaching it each <em>new</em> chore takes just a few hours of fresh episodes — like an experienced cook who only needs to see a new dish once or twice. Those fresh episodes, ordered again and again, are exactly the repeat business a data company lives on.</p>
+
+  <h2>3. The two rules of good lessons</h2>
+  <p><strong>Rule one: variety.</strong> A cook who has only ever cooked in her own kitchen panics in her sister's kitchen — different stove, different drawers, dimmer light. A cook who has cooked in fifty kitchens can cook anywhere. Robots are the first kind of cook unless you deliberately show them many kitchens. So collectors keep moving the cup, changing the tablecloth, dimming the lights — fifty <em>slightly different</em> lessons teach the robot to <em>cope</em>; fifty identical ones only teach it to repeat.</p>
+  <p><strong>Rule two: quality.</strong> A photocopier copies the smudges along with the letters — and a small child copies not just your words but your accent. The robot is both: if the demonstrator hesitates, fumbles, or takes a lazy shortcut, the robot faithfully learns to hesitate, fumble and shortcut. It was even measured: <strong>200 lessons from one calm expert taught a better robot than 300 lessons from six careless helpers.</strong> Now you know why Aktoria insists on trained, in-house operators instead of random freelancers — the robot photocopies its teacher.</p>
+  <p style="font-size:.95rem;color:var(--muted)">("Can't they practice inside a computer game instead?" They do — some robot hands have practiced for centuries inside simulations. But dreams are never quite like the real pitch: the real cloth is stickier, the real light glares. Dream-practice helps; real human-guided lessons on real objects remain the gold.)</p>
+
+  <h2>4. The three recording tools — Aktoria sells all three</h2>
+  <p><strong>Tool 1: The robot itself, driven by a human</strong> — everything from Lesson 4. The gold standard, because the lesson happened in the robot's own body: its cameras, its joints, its grip. Slower and more expensive — you need a robot and a trained operator — but nothing beats it.</p>
+  <p><strong>Tool 2: The magic tongs.</strong> A clever handheld tool: a robot's gripper you hold in your hand, with a small camera on top. No robot in the room at all — a person just <em>does the chore</em> holding it, squeezing it like kitchen tongs, and the camera plus a motion sensor record everything a robot will later need. It costs like a phone instead of like a car, and one person collects about <strong>three times more lessons per hour</strong> than by driving a robot. Each lesson is literally one video file. Robots trained purely on these hand-tool lessons have washed dishes and folded sweaters.</p>
+  <p><strong>Tool 3: Camera glasses.</strong> An ordinary-looking pair of glasses with two little cameras where your two eyes are — two, because that's how depth is judged (close one eye and try pouring water into a far-away glass!) — plus a motion sensor like the inner ear that tells you you're turning even with eyes shut. A person simply wears them and lives: cooking, folding, tidying. The robot later relives the day <em>through human eyes</em>. This is the cheapest lesson-maker of all — and the big realization behind it is lovely: humanity performs billions of hours of hand-work every day; glasses can finally harvest it. Even mixing just 90 minutes of glasses-recordings into a robot's training has made it dramatically better at those chores.</p>
+  <p>On Karan's website these are the three data products: robot episodes, handheld-gripper episodes, and "stereo ego" — which you can now decode like an engineer: <em>stereo</em> = two eyes, <em>ego</em> = filmed from the doer's own point of view.</p>
+
+  <h2>🎬 Watch all three kinds of lesson</h2>
+  <div class="video" data-vid="zMNumQ45pJ8" data-vt="Robot does chores BY ITSELF after ~50 lessons">
+    <button class="vthumb" aria-label="Play video"><img loading="lazy" src="https://i.ytimg.com/vi/zMNumQ45pJ8/hqdefault.jpg" alt=""><span class="play"><span><svg width="26" height="26" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg></span></span></button>
+    <div class="vmeta"><div class="vtitle">The payoff: a robot cooking and cleaning BY ITSELF</div><div class="vwatch">👀 This is the same student-built robot from Lesson 4's dinner video — but now NOBODY is driving. Everything here was learned from about 50 human-guided lessons per chore. Human drives → recordings teach → robot works alone. The whole story in one video.</div><a class="vlink" href="https://www.youtube.com/watch?v=zMNumQ45pJ8" target="_blank" rel="noopener">Open in YouTube ↗</a></div>
+  </div>
+  <div class="video" data-vid="kFREokAwLzo" data-vt="The magic tongs — collecting lessons with no robot">
+    <button class="vthumb" aria-label="Play video"><img loading="lazy" src="https://i.ytimg.com/vi/kFREokAwLzo/hqdefault.jpg" alt=""><span class="play"><span><svg width="26" height="26" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg></span></span></button>
+    <div class="vmeta"><div class="vtitle">The magic tongs in action</div><div class="vwatch">👀 Watch for: people carrying the handheld gripper into ordinary rooms — no robot anywhere — then a real robot repeating the exact skills it learned from those recordings.</div><a class="vlink" href="https://www.youtube.com/watch?v=kFREokAwLzo" target="_blank" rel="noopener">Open in YouTube ↗</a></div>
+  </div>
+  <div class="video" data-vid="bemrcQcHmMk" data-vt="Laundry-folding robot — honest and slow">
+    <button class="vthumb" aria-label="Play video"><img loading="lazy" src="https://i.ytimg.com/vi/bemrcQcHmMk/hqdefault.jpg" alt=""><span class="play"><span><svg width="26" height="26" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg></span></span></button>
+    <div class="vmeta"><div class="vtitle">Today's honest best: a robot folds laundry from the dryer</div><div class="vwatch">👀 Uncut and unpolished — slow, occasionally fumbling, recovering. Behind this one robot: about 10,000 hours of recorded lessons. Now you know both the miracle and the price tag.</div><a class="vlink" href="https://www.youtube.com/watch?v=bemrcQcHmMk" target="_blank" rel="noopener">Open in YouTube ↗</a></div>
+  </div>
+
+  <h2>5. Who buys lessons? Everyone — for fortunes</h2>
+  <p>The buyers are the companies building robot brains — and money is pouring into them. Robot-brain startups barely a few years old are valued in the <em>billions</em>. One famous car company pays people <strong>up to $48 an hour</strong> to demonstrate movements for its humanoid robot all day (they must be a certain height, so their movements fit the robot's body!). In China there are whole "robot schools" — halls with a hundred robots and mock kitchens and shops, recording tens of thousands of lessons every day. Teaching robots has become an industry.</p>
+  <div class="story"><span class="lab">📖 One last story — the gold rush rule</span>
+    <p>In every gold rush, they say, the surest money was made by the people selling picks and shovels to the miners.</p>
+    <p>It just happened, in front of everyone, in the chatbot era: a company that built <em>no</em> chatbots — it only prepared and organized training data for everyone else's — grew so valuable that one of the world's biggest tech companies paid <strong>fourteen billion dollars</strong> for half of it.</p>
+    <p>Now dozens of rich robot-brain companies are racing to build the winning robot. Every single one needs the same shovel: recorded human lessons. Selling that shovel to all of them, without betting on which miner strikes gold — that seat is open. <strong>That's the seat Aktoria is playing for.</strong></p>
+  </div>
+
+  <h2>Check yourself</h2>
+  <details class="reveal"><summary>What's inside one "episode"?</summary><div class="ans"><p>The video from several cameras <em>plus</em> the notebook of numbers — every joint angle and grip pressure, written 50 times a second — for one complete attempt at a task. Film + notebook. That's why YouTube videos aren't enough: they're all film, no notebook.</p></div></details>
+  <details class="reveal"><summary>Why does Aktoria insist on trained in-house operators?</summary><div class="ans"><p>Because the robot photocopies its teacher — hesitations, fumbles and all. A few hundred lessons from one calm expert beat more lessons from careless helpers. Quality is the product.</p></div></details>
+  <details class="reveal"><summary>Name the three lesson-recording tools.</summary><div class="ans"><p>1) A real robot driven by a human (gold standard). 2) The magic tongs — a handheld gripper with a camera, no robot needed, ~3× faster. 3) Camera glasses — two eyes plus a motion sensor, harvesting lessons from ordinary human life. Aktoria sells all three.</p></div></details>
+
+  <div class="newwords"><span class="lab">📚 New words you now own</span>
+    <span class="wordchip"><b>episode</b> one recorded lesson: film + notebook of numbers, 50×/second</span>
+    <span class="wordchip"><b>variety</b> many slightly-different lessons → a robot that copes anywhere</span>
+    <span class="wordchip"><b>quality</b> the robot photocopies its teacher — calm experts only</span>
+    <span class="wordchip"><b>stereo ego</b> camera glasses: two eyes (depth) + motion sense, from the doer's viewpoint</span>
+  </div>
+
+  <div class="tellkaran"><span class="lab">📞 Tell Karan tonight</span>
+  <p><em>"An episode is film plus notebook — fifty snapshots a second. And you sell shovels in a gold rush."</em> Then ask him which of the three tools his team used most this month.</p></div>
+
+  <button class="donebtn" data-done="lesson-6">Mark Lesson 6 finished ✓</button>
+  <div class="lessonfoot">
+    <button class="navbtn" data-goto="lesson-5">← Lesson 5</button>
+    <button class="navbtn primary" data-goto="lesson-7">Lesson 7 →</button>
+  </div>
+</section>
+<!-- ======================= LESSON 7 ======================= -->
+<section class="screen" id="lesson-7">
+  <span class="eyebrow">Part 3 · Lesson 7</span>
+  <h1>Aktoria — what your son actually built</h1>
+  <p class="standfirst">You've earned this lesson. Every piece you've learned now clicks into place — and at the end, there's something for your wall.</p>
+
+  <h2>1. Decoding the five strange words</h2>
+  <p>Aktoria's website greets the world with five words: <strong>"Human as API for Robots."</strong> Gibberish to most people. Not to you — you just need the one missing word.</p>
+  <p>An <strong>API</strong> is tech-speak for a <em>socket</em>. You don't build a power station to run your fridge — you plug into the wall, and electricity flows, and you pay for what you use. An API is that, for services: plug in, and the thing you need flows on demand.</p>
+  <p>So "Human as API for Robots" means: <strong>robot companies can plug into Aktoria, and trained human skill flows to their robots like electricity from a socket.</strong> A robot gets stuck — human skill flows in for two minutes — the robot carries on. No robot company has to build its own "power station" of operators. The way one taxi app turned "a driver" into a button you press, Aktoria turns "a skilled robot operator" into a socket any robot company can plug into.</p>
+
+  <h2>2. The three things on the shelf</h2>
+  <p>Everything Aktoria sells, you now understand from the inside:</p>
+  <p><strong>① The remote control</strong> — the software from Lesson 4. Driving robots over the internet with delay so tiny (a fraction of a blink, even across a country) that the robot's hands feel glued to the operator's. This is the hard engineering the rest stands on.</p>
+  <p><strong>② The people</strong> — the call center for hands from Lesson 5. Trained, in-house operators in India, Mexico and the USA, passing the shift around the clock. Robot companies plug in instead of building their own team — at roughly half the cost of doing it themselves.</p>
+  <p><strong>③ The lessons</strong> — the episodes from Lesson 6, in all three flavors: real-robot episodes, magic-tongs episodes, and camera-glasses recordings — made to research quality, because the robot photocopies its teacher.</p>
+  <div class="analogy"><span class="lab">🔁 And here's the beautiful machine they form together</span>
+  <p>Operators drive robots (that's paid work) → every session becomes recorded lessons (paid again) → the lessons make robots smarter → smarter robots get deployed in more places → which needs more operators behind them → which produces more lessons…</p>
+  <p><strong>Each turn of the wheel makes the next turn bigger.</strong> The remote driving of today literally manufactures the robot intelligence of tomorrow — and Aktoria is paid at every step of the circle.</p></div>
+
+  <h2>3. The part that's about your boy</h2>
+  <div class="story"><span class="lab">📖 The story you already know the beginning of</span>
+    <p>Two robotics students at one of the world's great robotics universities in America kept seeing the same thing: everyone was building robots — and everyone was quietly struggling with the same unglamorous problems. Who drives the robot when it gets stuck at 3 a.m.? Where do the training lessons come from? Who does the driving <em>well</em>?</p>
+    <p>So Karan — <strong>Jaskaran Singh Walia</strong>, with research behind him at some of the best labs in the world — and his co-founder <strong>Shreenabh</strong> decided not to build yet another robot. They built the thing every robot company needs: the remote controls, the people, and the lessons.</p>
+    <p>They applied to <strong>Y Combinator</strong> — the famous startup school in San Francisco that picks roughly one company in a hundred, and that backed Airbnb, Stripe and Dropbox when those were just a few people with an idea. <strong>Aktoria got in.</strong> Today it's a small team in San Francisco, working with robot companies, with Y Combinator and the well-known investment firm <strong>Accel</strong> behind it.</p>
+    <p>One more thing, because mothers worry: when you hear the company "raised money," it is not a loan. Investors bought small ownership shares because they believe the company will grow. Nothing has to be paid back — the investors win only if Aktoria wins.</p>
+  </div>
+  <p>And when another company's CEO publicly told the world that Aktoria runs this better than robot companies can themselves — that's the sound of the business working: other builders handing the hard, unglamorous part to your son's team, gladly.</p>
+
+  <h2>4. An honest answer to your last question</h2>
+  <p><em>"So when do I get my robot helper?"</em> The honest answer: nobody knows. Some serious people say a few years; other serious people say much, much longer — today's robots are still apprentices, and you've seen exactly why. But here is what makes Aktoria's seat at the table so good: <strong>it doesn't need to know.</strong> If robots arrive fast, they'll arrive trained on lessons like Aktoria's. If they arrive slowly, the world will need human safety nets behind them for years — which is Aktoria's other product. Either future needs what they sell. Shovels, in every weather.</p>
+
+  <h2>5. The final quiz — say the sentence</h2>
+  <p>Fill in the three blanks by tapping the right word. This is the sentence from Day One — watch it become yours.</p>
+  <div class="widget">
+    <span class="lab">🎓 The graduation sentence</span>
+    <p style="font-size:1.08rem;line-height:1.8">"Karan's company Aktoria helps robot companies in two ways: their trained people <span class="blank" id="b1">______</span> robots from far away when robots can't manage alone — and every session is <span class="blank" id="b2">______</span> as a lesson that <span class="blank" id="b3">______</span> robots to do the work themselves."</p>
+    <div id="quiz">
+      <div class="qrow" data-blank="b1" style="margin:10px 0"><b style="font-family:'Bricolage Grotesque',sans-serif">Blank 1:</b><br>
+        <button class="q-opt" data-ok="0">build</button>
+        <button class="q-opt" data-ok="1">drive</button>
+        <button class="q-opt" data-ok="0">repair</button>
+      </div>
+      <div class="qrow" data-blank="b2" style="margin:10px 0"><b style="font-family:'Bricolage Grotesque',sans-serif">Blank 2:</b><br>
+        <button class="q-opt" data-ok="0">deleted</button>
+        <button class="q-opt" data-ok="0">paused</button>
+        <button class="q-opt" data-ok="1">recorded</button>
+      </div>
+      <div class="qrow" data-blank="b3" style="margin:10px 0"><b style="font-family:'Bricolage Grotesque',sans-serif">Blank 3:</b><br>
+        <button class="q-opt" data-ok="1">teaches</button>
+        <button class="q-opt" data-ok="0">forces</button>
+        <button class="q-opt" data-ok="0">watches</button>
+      </div>
+    </div>
+    <div class="rulereply" id="quiznote"></div>
+  </div>
+
+  <div id="certzone" hidden>
+    <h2>🎓 Your certificate</h2>
+    <p>Type your name the way you'd like it to appear:</p>
+    <input type="text" id="certname" placeholder="Your name" style="max-width:340px">
+    <button class="btn btn-small" id="certbtn" style="margin-left:8px">Make my certificate</button>
+    <div class="cert" id="cert" hidden>
+      <div class="crest">🤖🎓</div>
+      <h3>Aktoria Robot School</h3>
+      <div class="csub">hereby declares that</div>
+      <div class="cname" id="certdisplay"></div>
+      <div class="csub">has completed all seven lessons and now understands<br>machine learning, teleoperation, and the robot lesson economy<br>better than most people in the technology industry.</div>
+      <div class="csub" id="certdate" style="margin-top:10px"></div>
+      <div class="csig">With love and pride — your student-turned-teacher, Karan 💛</div>
+    </div>
+    <p style="font-size:.95rem;color:var(--muted)">📸 Take a screenshot and send it to Karan. Demand he puts it on his office wall in San Francisco.</p>
+  </div>
+
+  <div class="tellkaran"><span class="lab">📞 Tell Karan — the graduation call</span>
+  <p>Call him and say the whole sentence from memory. Then add: <em>"And I know why the delay matters, why the operators are in three countries, and why an episode is film plus notebook."</em> Somewhere in San Francisco, a founder will be speechless.</p></div>
+
+  <button class="donebtn" data-done="lesson-7">Mark Lesson 7 finished ✓ 🎉</button>
+  <div class="lessonfoot">
+    <button class="navbtn" data-goto="lesson-6">← Lesson 6</button>
+    <button class="navbtn primary" data-goto="home">Back to all lessons</button>
+  </div>
+</section>
+
+<footer>
+  Made with 💛 for one very special student.<br>
+  Aktoria Robot School · <a href="https://aktoria.com" target="_blank" rel="noopener">aktoria.com</a>
+</footer>
+
+</main>
+</div>
+
+<script>
+(function(){
+"use strict";
+/* ---------- tiny safe storage ---------- */
+function sget(k){ try{ return localStorage.getItem(k); }catch(e){ return null; } }
+function sset(k,v){ try{ localStorage.setItem(k,v); }catch(e){} }
+
+/* ---------- login ---------- */
+var loginEl=document.getElementById('login'), appEl=document.getElementById('app');
+function showApp(){ loginEl.classList.remove('active'); loginEl.hidden=true; appEl.hidden=false; route(); }
+document.getElementById('loginform').addEventListener('submit',function(ev){
+  ev.preventDefault();
+  var u=(document.getElementById('user').value||'').trim().toLowerCase();
+  var p=(document.getElementById('pass').value||'').trim().toLowerCase();
+  if(u==='mom' && p==='mom'){ sset('ars_login','1'); showApp(); }
+  else{ document.getElementById('loginerr').textContent='Hmm, not quite — it’s the three-letter name Karan calls you, in both boxes. \u{1F60A}'; }
+});
+if(sget('ars_login')==='1'){ showApp(); }
+
+/* ---------- navigation ---------- */
+var screens=['home','lesson-1','lesson-2','lesson-3','lesson-4','lesson-5','lesson-6','lesson-7'];
+function show(id){
+  if(screens.indexOf(id)<0) id='home';
+  screens.forEach(function(s){ var el=document.getElementById(s); if(el) el.classList.toggle('active', s===id); });
+  window.scrollTo(0,0);
+  if(('#'+id)!==location.hash){ try{ history.pushState(null,'','#'+id); }catch(e){} }
+}
+function route(){ show((location.hash||'#home').slice(1)); }
+window.addEventListener('popstate',route);
+document.addEventListener('click',function(ev){
+  var b=ev.target.closest('[data-goto]');
+  if(b){ show(b.getAttribute('data-goto')); }
+});
+
+/* ---------- progress ---------- */
+function getDone(){ try{ return JSON.parse(sget('ars_done')||'[]'); }catch(e){ return []; } }
+function setDone(a){ sset('ars_done',JSON.stringify(a)); }
+function renderProgress(){
+  var done=getDone();
+  var pct=Math.round(done.length/7*100);
+  document.getElementById('progressbar').style.width=pct+'%';
+  document.getElementById('proglabel').textContent=pct+'%';
+  document.querySelectorAll('.lcard').forEach(function(c){
+    c.classList.toggle('done', done.indexOf(c.getAttribute('data-goto'))>=0);
+  });
+  document.querySelectorAll('.donebtn').forEach(function(b){
+    var id=b.getAttribute('data-done');
+    var isDone=done.indexOf(id)>=0;
+    b.classList.toggle('done',isDone);
+    b.textContent=isDone? 'Finished! Well done ✓' : b.textContent.replace('Finished! Well done ✓','Mark lesson finished ✓');
+  });
+}
+document.addEventListener('click',function(ev){
+  var b=ev.target.closest('[data-done]');
+  if(!b) return;
+  var id=b.getAttribute('data-done'), done=getDone(), i=done.indexOf(id);
+  if(i<0) done.push(id); else done.splice(i,1);
+  setDone(done); renderProgress();
+});
+renderProgress();
+
+/* ---------- video click-to-play ---------- */
+document.addEventListener('click',function(ev){
+  var t=ev.target.closest('.vthumb'); if(!t) return;
+  var card=t.closest('.video'), vid=card.getAttribute('data-vid');
+  var f=document.createElement('iframe');
+  f.src='https://www.youtube-nocookie.com/embed/'+vid+'?autoplay=1&rel=0';
+  f.allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+  f.allowFullscreen=true;
+  f.title=card.getAttribute('data-vt')||'Video';
+  card.replaceChild(f,t);
+});
+
+/* ---------- L1: dog rules game ---------- */
+var dogReplies=[
+ 'A chair has four legs. So does a cat, a cow and a table. And a dog curled up asleep shows no legs at all. ❌',
+ 'So does a cat. And a coconut, honestly. ❌',
+ 'Cows have tails. Lizards have tails. Your rule just called a lizard a dog. ❌',
+ 'A photo is silent! And some dogs don’t bark at strangers anyway. ❌'
+];
+var dogTried=0;
+document.querySelectorAll('#dogrules .chip').forEach(function(ch){
+  ch.addEventListener('click',function(){
+    if(ch.disabled) return;
+    ch.disabled=true; dogTried++;
+    var r=document.getElementById('dogreply');
+    r.innerHTML='<b>Computer:</b> '+dogReplies[+ch.getAttribute('data-r')];
+    if(dogTried>=3){ r.innerHTML+='<br><br><b>✨ You feel it now:</b> the rules never end. That’s why we stopped writing rules — and started showing examples.'; }
+  });
+});
+
+/* ---------- L2: next-word game ---------- */
+var sentSteps=[
+ {opts:['robot','postman','moon']},
+ {opts:['learns','sleeps','argues']},
+ {opts:['by','under','despite']},
+ {opts:['watching','frying','ignoring']},
+ {opts:['thousands','a pinch','none']},
+ {opts:['of examples.','of onions.','of excuses.']}
+];
+var sentWords=['The'], sentIdx=0;
+function renderSent(){
+  var box=document.getElementById('sentsofar'); if(!box) return;
+  box.textContent=sentWords.join(' ');
+  var chips=document.getElementById('sentchips'); chips.innerHTML='';
+  if(sentIdx<sentSteps.length){
+    sentSteps[sentIdx].opts.forEach(function(w){
+      var b=document.createElement('button'); b.className='chip'; b.textContent=w;
+      b.addEventListener('click',function(){ sentWords.push(w); sentIdx++; renderSent(); });
+      chips.appendChild(b);
+    });
+    document.getElementById('sentnote').textContent='Pick the next word…';
+  } else {
+    document.getElementById('sentnote').innerHTML='<b>✨ That’s ChatGPT’s entire job</b> — pick a likely next word, again and again. It just plays with billions of dials, after reading thousands of Wikipedias. (And notice: even a silly choice made a fluent sentence. Fluent ≠ true!)';
+  }
+}
+renderSent();
+
+/* ---------- L4: latency playground ---------- */
+var pad=document.getElementById('lagpad');
+if(pad){
+  var hand=document.getElementById('handdot'), robot=document.getElementById('robotdot');
+  var lag=30, buf=[];
+  var lagNotes={
+    '30':'With Karan’s software, the dot feels glued to your finger — the robot moves before a blink finishes.',
+    '200':'Feel that rubber-band drag? This is an ordinary video call’s delay. Delicate work is already tiring.',
+    '1500':'Now try to “catch” anything. This is satellite delay — fine for flying a plane in open sky, hopeless for hands.'
+  };
+  document.querySelectorAll('[data-lag]').forEach(function(b){
+    b.addEventListener('click',function(){
+      lag=+b.getAttribute('data-lag');
+      document.querySelectorAll('[data-lag]').forEach(function(x){x.classList.toggle('picked',x===b);});
+      document.getElementById('lagnote').textContent=lagNotes[String(lag)];
+    });
+  });
+  function toXY(ev){
+    var r=pad.getBoundingClientRect();
+    var p=(ev.touches&&ev.touches[0])||ev;
+    return {x:Math.max(0,Math.min(r.width,p.clientX-r.left)), y:Math.max(0,Math.min(r.height,p.clientY-r.top)), t:performance.now()};
+  }
+  function onMove(ev){
+    var p=toXY(ev);
+    hand.style.left=p.x+'px'; hand.style.top=p.y+'px';
+    buf.push(p); if(buf.length>400) buf.shift();
+    if(ev.cancelable) ev.preventDefault();
+  }
+  pad.addEventListener('pointermove',onMove);
+  pad.addEventListener('pointerdown',onMove);
+  pad.addEventListener('touchmove',onMove,{passive:false});
+  (function tick(){
+    var target=performance.now()-lag, best=null;
+    for(var i=buf.length-1;i>=0;i--){ if(buf[i].t<=target){ best=buf[i]; break; } }
+    if(!best && buf.length) best=buf[0];
+    if(best){ robot.style.left=best.x+'px'; robot.style.top=best.y+'px'; }
+    requestAnimationFrame(tick);
+  })();
+}
+
+/* ---------- L6: episode viewer ---------- */
+var epn=document.getElementById('epnums'), epc=document.getElementById('epcount');
+if(epn){
+  var snap=0, e0=42.1,w0=118.3,g0=0.82,r0=31.4;
+  setInterval(function(){
+    snap+=5;
+    e0+=(Math.random()-.5)*1.6; w0+=(Math.random()-.5)*2.2; g0=Math.max(.1,Math.min(1,g0+(Math.random()-.5)*.06)); r0+=(Math.random()-.5)*.8;
+    epn.textContent='elbow '+e0.toFixed(1)+'° · wrist '+w0.toFixed(1)+'° · grip '+g0.toFixed(2)+' · reach '+r0.toFixed(1)+' cm';
+    epc.textContent='snapshot #'+snap+' of this episode';
+  },100);
+}
+
+/* ---------- L7: quiz + certificate ---------- */
+var quizRight=0;
+document.querySelectorAll('#quiz .q-opt').forEach(function(b){
+  b.addEventListener('click',function(){
+    var row=b.closest('.qrow');
+    if(row.getAttribute('data-solved')) return;
+    if(b.getAttribute('data-ok')==='1'){
+      row.setAttribute('data-solved','1');
+      b.classList.add('right');
+      document.getElementById(row.getAttribute('data-blank')).textContent=b.textContent;
+      quizRight++;
+      if(quizRight>=3){
+        document.getElementById('quiznote').innerHTML='<b>\u{1F389} Perfect. You can say the whole sentence — and explain every word in it.</b>';
+        document.getElementById('certzone').hidden=false;
+      }
+    } else {
+      b.classList.add('wrong');
+    }
+  });
+});
+var savedName=sget('ars_name');
+if(savedName){ var cn=document.getElementById('certname'); if(cn) cn.value=savedName; }
+var certbtn=document.getElementById('certbtn');
+if(certbtn) certbtn.addEventListener('click',function(){
+  var n=(document.getElementById('certname').value||'').trim() || 'Mom';
+  sset('ars_name',n);
+  document.getElementById('certdisplay').textContent=n;
+  var d=new Date();
+  document.getElementById('certdate').textContent='Graduated on '+d.toLocaleDateString(undefined,{year:'numeric',month:'long',day:'numeric'});
+  document.getElementById('cert').hidden=false;
+});
+})();
+</script>
+</body>
+</html>
